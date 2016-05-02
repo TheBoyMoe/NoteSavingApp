@@ -2,42 +2,9 @@
     <string name="app_name">GoalSetterDemo</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="dummy_text">
-        Bacon ipsum dolor amet short ribs filet mignon tri-tip, beef sausage cupim ground round
-        turkey. Flank strip steak tenderloin cupim, short loin brisket ham hock. Kielbasa drumstick
-        rump, sausage cow ground round tenderloin jowl ham hock doner ribeye cupim pork belly spare
-        ribs. Rump short loin landjaeger, meatloaf ball tip shoulder jerky turducken. Ground round
-        pork loin doner, t-bone sausage shank turducken tri-tip pancetta filet mignon brisket cupim
-        bresaola landjaeger. Andouille chicken landjaeger doner, corned beef pork cow pork belly short
-        ribs fatback meatball cupim strip steak shankle. Chuck shankle landjaeger pig shank
-        andouille porchetta, kevin venison shoulder tri-tip boudin bresaola beef.
-
-        Frankfurter filet mignon cow flank. Sausage porchetta kevin cupim, pork chop meatloaf doner
-        alcatra corned beef ham hock turkey. Venison beef ribs rump boudin ball tip spare ribs.
-        Turkey jowl leberkas chuck tail. Shank swine pastrami pork chop ham hock pork bresaola turkey
-        brisket cupim spare ribs meatloaf salami turducken. Ham hock kielbasa meatloaf, bresaola
-        tenderloin alcatra hamburger landjaeger shank. Salami chicken corned beef, porchetta strip
-        steak sausage doner bresaola tail fatback tenderloin.
-
-        Fatback chicken short ribs meatball turducken doner. Corned beef jerky doner turducken,
-        venison pork fatback. Sirloin shoulder porchetta landjaeger ball tip biltong capicola turkey
-        pig meatloaf tri-tip beef ribs filet mignon. Chuck short loin tongue, pork chop meatball shank jerky.
-
-        Frankfurter doner turkey beef ribs rump flank. Swine pancetta beef ribs, bresaola pork
-        landjaeger corned beef ham hock beef pork chop tenderloin jowl short loin tri-tip. Beef
-        ribs spare ribs doner, pork chop chuck shankle pork loin kielbasa. Biltong beef sirloin
-        meatball boudin hamburger. Hamburger kielbasa doner, rump tenderloin sausage short ribs.
-        Capicola sausage biltong chicken. Ball tip ham landjaeger brisket shank shankle.
-
-        Biltong ribeye beef porchetta flank capicola pork chop fatback rump picanha bresaola.
-        Landjaeger rump sirloin, frankfurter shankle ham hock tongue biltong pancetta leberkas
-        capicola beef t-bone ball tip jerky. Drumstick biltong prosciutto, meatball jowl spare
-        ribs bresaola alcatra beef ribs sirloin. Hamburger boudin ham hock ham, doner t-bone chuck
-        pork belly pastrami tail leberkas sausage shoulder picanha swine. Shankle pork belly ball
-        tip hamburger turkey filet mignon corned beef tenderloin spare ribs. Pork loin flank pork,
-        ribeye tail short loin alcatra filet mignon sausage bresaola. Chicken ribeye turkey brisket,
-        pork frankfurter capicola jerky.
-    </string>
     <string name="bottom_toolbar_title">Add a note:</string>
     <string name="image_button_description">Add a note to your wall</string>
+    <string name="no_notes_found">No notes found</string>
+    <string name="text_note_title_hint">Enter a title</string>
+    <string name="text_note_description_hint">Enter an quote that will inspire you to achieve your goal</string>
 </resources>
