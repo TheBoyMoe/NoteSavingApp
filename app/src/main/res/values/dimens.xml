@@ -13,4 +13,6 @@
     <dimen name="xlarge">48dp</dimen>
     <dimen name="xxlarge">56dp</dimen>
 
+    <dimen name="button_size">40dp</dimen>
+
 </resources>

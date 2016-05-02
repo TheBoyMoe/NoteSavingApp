@@ -1,24 +1,21 @@
 package com.example.demo.ui;
 
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.demo.R;
@@ -33,18 +30,7 @@ public class TabActivity extends AppCompatActivity {
             R.drawable.tab_icon_calendar
     };
 
-
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /** The {@link ViewPager} that will host the section contents.  */
     private ViewPager mViewPager;
 
     @Override
@@ -69,18 +55,6 @@ public class TabActivity extends AppCompatActivity {
             }
         }
 
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        if (fab != null) {
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-            });
-        }
-
     }
 
 
@@ -98,10 +72,20 @@ public class TabActivity extends AppCompatActivity {
     }
 
     /** A placeholder fragment containing a simple view.  */
-    public static class PlaceholderFragment extends Fragment {
+    public static class PlaceholderFragment extends Fragment implements View.OnClickListener{
 
         /** The fragment argument representing the section number for this fragment. */
         private static final String ARG_SECTION_NUMBER = "section_number";
+
+        private int[] mToolbarIcons = {
+                R.drawable.action_note,
+                R.drawable.action_photo,
+                R.drawable.action_audio
+        };
+
+        private ImageButton mNoteButton;
+        private ImageButton mPhotoButton;
+        private ImageButton mAudioButton;
 
         public PlaceholderFragment() { }
 
@@ -115,13 +99,43 @@ public class TabActivity extends AppCompatActivity {
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.fragment_main, container, false);
+            TextView textView = (TextView) view.findViewById(R.id.section_label);
             textView.setText(getString(R.string.dummy_text));
-            return rootView;
+            setupToolbarButtons(view);
+
+            return view;
+        }
+
+        private void setupToolbarButtons(View view) {
+            mNoteButton = (ImageButton) view.findViewById(R.id.button_text);
+            mPhotoButton = (ImageButton) view.findViewById(R.id.button_photo);
+            mAudioButton = (ImageButton) view.findViewById(R.id.button_audio);
+
+            mNoteButton.setOnClickListener(this);
+            mPhotoButton.setOnClickListener(this);
+            mAudioButton.setOnClickListener(this);
+
+            mNoteButton.setImageDrawable(Utils.tintDrawable(ContextCompat.getDrawable(getActivity(), mToolbarIcons[0]), R.color.colorIconFooter));
+            mPhotoButton.setImageDrawable(Utils.tintDrawable(ContextCompat.getDrawable(getActivity(), mToolbarIcons[1]), R.color.colorIconFooter));
+            mAudioButton.setImageDrawable(Utils.tintDrawable(ContextCompat.getDrawable(getActivity(), mToolbarIcons[2]), R.color.colorIconFooter));
+        }
+
+
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.button_text:
+                    Utils.showToast(getActivity(), "Clicked note button");
+                    break;
+                case R.id.button_photo:
+                    Utils.showToast(getActivity(), "Clicked photo button");
+                    break;
+                case R.id.button_audio:
+                    Utils.showToast(getActivity(), "Clicked audio button");
+                    break;
+            }
         }
     }
 
@@ -174,5 +188,6 @@ public class TabActivity extends AppCompatActivity {
         tabLayout.getTabAt(2).setIcon(Utils.tintDrawable(ContextCompat.getDrawable(this, mTabIcons[2]), Color.WHITE));
         tabLayout.getTabAt(3).setIcon(Utils.tintDrawable(ContextCompat.getDrawable(this, mTabIcons[3]), Color.WHITE));
     }
+
 
 }
