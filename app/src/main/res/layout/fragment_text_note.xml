@@ -21,7 +21,8 @@
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/large">
 
         <EditText
             android:id="@+id/text_note_description"
@@ -30,5 +31,13 @@
             android:imeOptions="actionDone"/>
 
     </android.support.design.widget.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/save_note"
+        android:padding="@dimen/normal"
+        android:text="@string/button_save_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
