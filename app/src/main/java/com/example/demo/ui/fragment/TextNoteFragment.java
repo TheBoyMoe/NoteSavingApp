@@ -11,6 +11,9 @@ import android.widget.EditText;
 import com.example.demo.R;
 import com.example.demo.model.Note;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 import io.realm.Realm;
@@ -71,8 +74,10 @@ public class TextNoteFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         final Note textNote = new Note();
-        final Long id = (long) (mGenerator.nextInt(100) + 1);
-        textNote.setId(id);
+
+        // populate the object
+        final Long id = setCustomId();
+        textNote.setId(setCustomId());
         final String strTitle = mTitle.getText() != null ? mTitle.getText().toString() : "";
         textNote.setTitle(strTitle);
         final String strDescription = mDescription.getText() != null ? mDescription.getText().toString() : "";
@@ -95,6 +100,16 @@ public class TextNoteFragment extends BaseFragment implements View.OnClickListen
                 Timber.e("Error writing object to realm, %s", error.getMessage());
             }
         });
+    }
+
+    private Long setCustomId() {
+        // define an id based on the date time stamp
+        Locale locale = new Locale("en_US");
+        Locale.setDefault(locale);
+        String pattern = "yyyyMMddHHmmssSS"; // pattern used to sort objects
+        SimpleDateFormat formatter = new SimpleDateFormat(pattern, Locale.getDefault());
+
+        return Long.valueOf(formatter.format(new Date()));
     }
 
 
