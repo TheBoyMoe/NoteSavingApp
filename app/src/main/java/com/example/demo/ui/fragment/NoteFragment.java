@@ -10,44 +10,97 @@ import android.widget.ImageButton;
 
 import com.example.demo.R;
 import com.example.demo.common.Utils;
+import com.example.demo.custom.CustomItemDecoration;
+import com.example.demo.custom.CustomRealmViewAdapter;
+import com.example.demo.model.Note;
 import com.example.demo.ui.activity.TextNoteActivity;
 
 import co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView;
 import io.realm.Realm;
+import io.realm.RealmChangeListener;
+import io.realm.RealmResults;
 
-public class InspirationFragment extends BaseFragment implements View.OnClickListener{
+public class NoteFragment extends BaseFragment implements View.OnClickListener{
 
-    private Realm mRealm;
-    private RealmRecyclerView mRecyclerView;
     private int[] mToolbarIcons = {
             R.drawable.action_note,
             R.drawable.action_photo,
             R.drawable.action_audio
     };
+    private Realm mRealm;
+    private CustomRealmViewAdapter mAdapter;
+    private RealmResults<Note> mResults;
+    private RealmChangeListener mCallback = new RealmChangeListener() {
+        @Override
+        public void onChange() {
+            // update ui
+            mAdapter.updateRealmResults(mResults);
+        }
+    };
+    private RealmRecyclerView mRecyclerView;
 
-    public InspirationFragment() {}
+    public NoteFragment() {}
 
-    public static InspirationFragment newInstance() {
-        InspirationFragment fragment = new InspirationFragment();
+    public static NoteFragment newInstance() {
+        NoteFragment fragment = new NoteFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
-
         return fragment;
     }
-
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_inspiration, container, false);
-//        TextView textView = (TextView) view.findViewById(R.id.dummy_text);
-//        textView.setText(getString(R.string.dummy_text));
-        setupToolbarButtons(view);
+        setupFooterToolbarButtons(view);
+        mRecyclerView = (RealmRecyclerView) view.findViewById(R.id.realm_recycler_view);
+        mRecyclerView.addItemDecoration(new CustomItemDecoration(getResources().getDimensionPixelSize(R.dimen.item_spacer)));
 
         return view;
     }
 
-    private void setupToolbarButtons(View view) {
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mRealm = Realm.getDefaultInstance();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // set the query and a callback whenever the query has completed and every time the realm is updated
+        mResults = mRealm.where(Note.class).findAllAsync();
+        mResults.addChangeListener(mCallback);
+
+        // instantiate and bind adapter
+        mAdapter = new CustomRealmViewAdapter(
+                getActivity(),
+                mResults,
+                true, // refresh adapter on realm update
+                false
+        );
+        if (isAdded())
+            mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        // remove the callback listener
+        mResults.removeChangeListener(mCallback);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mRealm != null) {
+            mRealm.close();
+            mRealm = null;
+        }
+    }
+
+
+    private void setupFooterToolbarButtons(View view) {
         ImageButton noteButton = (ImageButton) view.findViewById(R.id.button_text);
         ImageButton PhotoButton = (ImageButton) view.findViewById(R.id.button_photo);
         ImageButton audioButton = (ImageButton) view.findViewById(R.id.button_audio);
@@ -61,9 +114,9 @@ public class InspirationFragment extends BaseFragment implements View.OnClickLis
         audioButton.setImageDrawable(Utils.tintDrawable(ContextCompat.getDrawable(getActivity(), mToolbarIcons[2]), R.color.colorIcon));
     }
 
-
     @Override
     public void onClick(View view) {
+        // handle footer toolbar clicks
         switch (view.getId()) {
             case R.id.button_text:
                 // launch text note activity

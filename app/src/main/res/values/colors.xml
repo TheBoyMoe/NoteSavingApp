@@ -7,4 +7,5 @@
     <color name="colorPrimaryText">@color/primary_text</color>
     <color name="colorSecondaryBackground">@color/secondary_background</color>
     <color name="colorIcon">@color/icon</color>
+    <color name="colorActivatedBackground">@color/activated</color>
 </resources>

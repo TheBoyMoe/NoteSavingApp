@@ -100,6 +100,8 @@ public class TextNoteFragment extends BaseFragment implements View.OnClickListen
                 Timber.e("Error writing object to realm, %s", error.getMessage());
             }
         });
+
+        getActivity().finish();
     }
 
     private Long setCustomId() {

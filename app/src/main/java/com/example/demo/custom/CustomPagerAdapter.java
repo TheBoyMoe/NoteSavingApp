@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.demo.ui.fragment.InspirationFragment;
+import com.example.demo.ui.fragment.NoteFragment;
 import com.example.demo.ui.fragment.PlaceHolderFragment;
 
 public class CustomPagerAdapter extends FragmentPagerAdapter{
@@ -23,7 +23,7 @@ public class CustomPagerAdapter extends FragmentPagerAdapter{
         // instantiate the appropriate fragment
         switch (position) {
             case INSPIRATION_FRAGMENT:
-                return InspirationFragment.newInstance();
+                return NoteFragment.newInstance();
             case GOAL_FRAGMENT:
             case TASK_FRAGMENT:
             case CALENDAR_FRAGMENT:

@@ -12,5 +12,6 @@
     <color name="divider">#B6B6B6</color>
     <color name="primary_background">#FFFFFF</color>
     <color name="secondary_background">#DFDFDF</color>
+    <color name="activated">#DFDFDF</color>
 
 </resources>
