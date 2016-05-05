@@ -24,10 +24,11 @@ public class TabActivity extends AppCompatActivity {
     };
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
 
+        // add the toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -60,7 +61,6 @@ public class TabActivity extends AppCompatActivity {
         return item.getItemId() == R.id.action_settings
                 || super.onOptionsItemSelected(item);
     }
-
 
 
     @SuppressWarnings("ConstantConditions")

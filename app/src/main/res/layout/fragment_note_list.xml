@@ -2,23 +2,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/recycler_view_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragment.PlaceHolderFragment">
 
-    <!--<android.support.v4.widget.NestedScrollView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content">-->
-
+        <!-- bottom margin ensures the last item is not hidden by the footer -->
         <co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView
             android:id="@+id/realm_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/footer_toolbar_height"
             app:rrvIsRefreshable="false"
             app:rrvEmptyLayoutId="@layout/empty_view"
             app:rrvLayoutType="LinearLayout"/>
 
-    <!--</android.support.v4.widget.NestedScrollView>-->
 
     <include layout="@layout/footer_toolbar"/>
 

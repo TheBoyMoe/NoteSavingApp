@@ -33,7 +33,7 @@ public class CustomRealmViewAdapter extends RealmBasedRecyclerViewAdapter<Note, 
 
     @Override
     public CustomRealmViewHolder onCreateRealmViewHolder(ViewGroup viewGroup, int viewType) {
-        View view = inflater.inflate(R.layout.inspiration_list_item, viewGroup, false);
+        View view = inflater.inflate(R.layout.note_list_item, viewGroup, false);
         return new CustomRealmViewHolder(view);
     }
 

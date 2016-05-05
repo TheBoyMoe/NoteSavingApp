@@ -5,7 +5,7 @@
     <string name="bottom_toolbar_title">Add a note:</string>
     <string name="image_button_description">Add a note to your wall</string>
     <string name="no_notes_found">No notes found</string>
-    <string name="text_note_title_hint">Enter a title</string>
-    <string name="text_note_description_hint">Enter an quote that will inspire you to achieve your goal</string>
+    <string name="text_note_title_hint">Add a title</string>
+    <string name="text_note_description_hint">Add a quote that will inspire you to achieve your goal</string>
     <string name="button_save_text">Save</string>
 </resources>

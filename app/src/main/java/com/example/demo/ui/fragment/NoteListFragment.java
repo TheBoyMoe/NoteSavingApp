@@ -20,7 +20,8 @@ import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 
-public class NoteFragment extends BaseFragment implements View.OnClickListener{
+public class NoteListFragment extends BaseFragment implements View.OnClickListener{
+
 
     private int[] mToolbarIcons = {
             R.drawable.action_note,
@@ -39,10 +40,10 @@ public class NoteFragment extends BaseFragment implements View.OnClickListener{
     };
     private RealmRecyclerView mRecyclerView;
 
-    public NoteFragment() {}
+    public NoteListFragment() {}
 
-    public static NoteFragment newInstance() {
-        NoteFragment fragment = new NoteFragment();
+    public static NoteListFragment newInstance() {
+        NoteListFragment fragment = new NoteListFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -51,10 +52,26 @@ public class NoteFragment extends BaseFragment implements View.OnClickListener{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_inspiration, container, false);
+        View view = inflater.inflate(R.layout.fragment_note_list, container, false);
+        // RelativeLayout recyclerViewContainer = (RelativeLayout) view.findViewById(R.id.recycler_view_container);
         setupFooterToolbarButtons(view);
         mRecyclerView = (RealmRecyclerView) view.findViewById(R.id.realm_recycler_view);
         mRecyclerView.addItemDecoration(new CustomItemDecoration(getResources().getDimensionPixelSize(R.dimen.item_spacer)));
+
+//        // create and add the footer toolbar programmatically
+//        RelativeLayout footerToolbar = new RelativeLayout(getActivity());
+//        RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(
+//                RelativeLayout.LayoutParams.MATCH_PARENT,
+//                RelativeLayout.LayoutParams.WRAP_CONTENT);
+//        relativeParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM); // position the footer toolbar
+//        footerToolbar.setLayoutParams(relativeParams);
+//
+//        // instantiate and add the toolbar title and buttons
+//        setupFooterToolbarTitle(footerToolbar);
+//        setupFooterToolbarButtons(footerToolbar);
+//
+//        // add the footer toolbar to the fragment layout
+//        recyclerViewContainer.addView(footerToolbar);
 
         return view;
     }
@@ -99,19 +116,48 @@ public class NoteFragment extends BaseFragment implements View.OnClickListener{
         }
     }
 
+//    private void setupFooterToolbarTitle(RelativeLayout relativeLayout) {
+//        // instantiate and add text view
+//        TextView noteText = new TextView(getActivity());
+//        RelativeLayout.LayoutParams textViewParams = new RelativeLayout.LayoutParams(
+//                RelativeLayout.LayoutParams.WRAP_CONTENT,
+//                RelativeLayout.LayoutParams.WRAP_CONTENT
+//        );
+//        noteText.setLayoutParams(textViewParams);
+//        noteText.setText(R.string.bottom_toolbar_title);
+//
+//        relativeLayout.addView(noteText);
+//    }
 
     private void setupFooterToolbarButtons(View view) {
-        ImageButton noteButton = (ImageButton) view.findViewById(R.id.button_text);
-        ImageButton PhotoButton = (ImageButton) view.findViewById(R.id.button_photo);
-        ImageButton audioButton = (ImageButton) view.findViewById(R.id.button_audio);
+        ImageButton textNoteButton = (ImageButton) view.findViewById(R.id.button_text);
+        ImageButton imageNoteButton = (ImageButton) view.findViewById(R.id.button_photo);
+        ImageButton audioNoteButton = (ImageButton) view.findViewById(R.id.button_audio);
 
-        noteButton.setOnClickListener(this);
-        PhotoButton.setOnClickListener(this);
-        audioButton.setOnClickListener(this);
 
-        noteButton.setImageDrawable(Utils.tintDrawable(ContextCompat.getDrawable(getActivity(), mToolbarIcons[0]), R.color.colorIcon));
-        PhotoButton.setImageDrawable(Utils.tintDrawable(ContextCompat.getDrawable(getActivity(), mToolbarIcons[1]), R.color.colorIcon));
-        audioButton.setImageDrawable(Utils.tintDrawable(ContextCompat.getDrawable(getActivity(), mToolbarIcons[2]), R.color.colorIcon));
+        // ImageButton textNoteButton = new ImageButton(getActivity());
+        // ImageButton imageNoteButton = new ImageButton(getActivity());
+        // ImageButton audioNoteButton = new ImageButton(getActivity());
+
+        textNoteButton.setOnClickListener(this);
+        imageNoteButton.setOnClickListener(this);
+        audioNoteButton.setOnClickListener(this);
+
+        textNoteButton.setImageDrawable(Utils.tintDrawable(ContextCompat.getDrawable(getActivity(), mToolbarIcons[0]), R.color.colorIcon));
+        imageNoteButton.setImageDrawable(Utils.tintDrawable(ContextCompat.getDrawable(getActivity(), mToolbarIcons[1]), R.color.colorIcon));
+        audioNoteButton.setImageDrawable(Utils.tintDrawable(ContextCompat.getDrawable(getActivity(), mToolbarIcons[2]), R.color.colorIcon));
+
+//        // position audio button
+//        RelativeLayout.LayoutParams audioButtonParams = new RelativeLayout.LayoutParams(
+//                RelativeLayout.LayoutParams.WRAP_CONTENT,
+//                RelativeLayout.LayoutParams.WRAP_CONTENT
+//        );
+//        audioButtonParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+//        audioNoteButton.setLayoutParams(audioButtonParams);
+//
+//        relativeLayout.addView(textNoteButton);
+//        relativeLayout.addView(imageNoteButton);
+//        relativeLayout.addView(audioNoteButton);
     }
 
     @Override
