@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_marginTop="?actionBarSize"
+              android:padding="@dimen/medium"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/normal">
+
+        <EditText
+            android:id="@+id/text_note_title"
+            android:hint="@string/text_note_title_hint"
+            style="@style/TextStyle.TextNote.Title"
+            android:imeOptions="actionDone"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <ImageView
+        android:id="@+id/video_note_thumbnail"
+        android:contentDescription="@string/video_thumbnail_content_description"
+        android:src="@mipmap/ic_launcher"
+        android:layout_marginTop="@dimen/large"
+        android:layout_marginBottom="@dimen/large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <Button
+        android:id="@+id/save_note"
+        android:padding="@dimen/normal"
+        android:text="@string/button_save_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

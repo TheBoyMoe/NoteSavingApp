@@ -14,6 +14,7 @@ import com.example.demo.custom.CustomItemDecoration;
 import com.example.demo.custom.CustomRealmViewAdapter;
 import com.example.demo.model.Note;
 import com.example.demo.ui.activity.TextNoteActivity;
+import com.example.demo.ui.activity.VideoNoteActivity;
 
 import co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView;
 import io.realm.Realm;
@@ -22,9 +23,9 @@ import io.realm.RealmResults;
 
 public class NoteListFragment extends BaseFragment implements View.OnClickListener{
 
-
     private int[] mToolbarIcons = {
             R.drawable.action_note,
+            R.drawable.action_video,
             R.drawable.action_photo,
             R.drawable.action_audio
     };
@@ -53,25 +54,9 @@ public class NoteListFragment extends BaseFragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_note_list, container, false);
-        // RelativeLayout recyclerViewContainer = (RelativeLayout) view.findViewById(R.id.recycler_view_container);
         setupFooterToolbarButtons(view);
         mRecyclerView = (RealmRecyclerView) view.findViewById(R.id.realm_recycler_view);
         mRecyclerView.addItemDecoration(new CustomItemDecoration(getResources().getDimensionPixelSize(R.dimen.item_spacer)));
-
-//        // create and add the footer toolbar programmatically
-//        RelativeLayout footerToolbar = new RelativeLayout(getActivity());
-//        RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(
-//                RelativeLayout.LayoutParams.MATCH_PARENT,
-//                RelativeLayout.LayoutParams.WRAP_CONTENT);
-//        relativeParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM); // position the footer toolbar
-//        footerToolbar.setLayoutParams(relativeParams);
-//
-//        // instantiate and add the toolbar title and buttons
-//        setupFooterToolbarTitle(footerToolbar);
-//        setupFooterToolbarButtons(footerToolbar);
-//
-//        // add the footer toolbar to the fragment layout
-//        recyclerViewContainer.addView(footerToolbar);
 
         return view;
     }
@@ -116,48 +101,21 @@ public class NoteListFragment extends BaseFragment implements View.OnClickListen
         }
     }
 
-//    private void setupFooterToolbarTitle(RelativeLayout relativeLayout) {
-//        // instantiate and add text view
-//        TextView noteText = new TextView(getActivity());
-//        RelativeLayout.LayoutParams textViewParams = new RelativeLayout.LayoutParams(
-//                RelativeLayout.LayoutParams.WRAP_CONTENT,
-//                RelativeLayout.LayoutParams.WRAP_CONTENT
-//        );
-//        noteText.setLayoutParams(textViewParams);
-//        noteText.setText(R.string.bottom_toolbar_title);
-//
-//        relativeLayout.addView(noteText);
-//    }
-
     private void setupFooterToolbarButtons(View view) {
         ImageButton textNoteButton = (ImageButton) view.findViewById(R.id.button_text);
+        ImageButton videoNoteButton = (ImageButton) view.findViewById(R.id.button_video);
         ImageButton imageNoteButton = (ImageButton) view.findViewById(R.id.button_photo);
         ImageButton audioNoteButton = (ImageButton) view.findViewById(R.id.button_audio);
 
-
-        // ImageButton textNoteButton = new ImageButton(getActivity());
-        // ImageButton imageNoteButton = new ImageButton(getActivity());
-        // ImageButton audioNoteButton = new ImageButton(getActivity());
-
         textNoteButton.setOnClickListener(this);
+        videoNoteButton.setOnClickListener(this);
         imageNoteButton.setOnClickListener(this);
         audioNoteButton.setOnClickListener(this);
 
         textNoteButton.setImageDrawable(Utils.tintDrawable(ContextCompat.getDrawable(getActivity(), mToolbarIcons[0]), R.color.colorIcon));
-        imageNoteButton.setImageDrawable(Utils.tintDrawable(ContextCompat.getDrawable(getActivity(), mToolbarIcons[1]), R.color.colorIcon));
-        audioNoteButton.setImageDrawable(Utils.tintDrawable(ContextCompat.getDrawable(getActivity(), mToolbarIcons[2]), R.color.colorIcon));
-
-//        // position audio button
-//        RelativeLayout.LayoutParams audioButtonParams = new RelativeLayout.LayoutParams(
-//                RelativeLayout.LayoutParams.WRAP_CONTENT,
-//                RelativeLayout.LayoutParams.WRAP_CONTENT
-//        );
-//        audioButtonParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-//        audioNoteButton.setLayoutParams(audioButtonParams);
-//
-//        relativeLayout.addView(textNoteButton);
-//        relativeLayout.addView(imageNoteButton);
-//        relativeLayout.addView(audioNoteButton);
+        videoNoteButton.setImageDrawable(Utils.tintDrawable(ContextCompat.getDrawable(getActivity(), mToolbarIcons[1]), R.color.colorIcon));
+        imageNoteButton.setImageDrawable(Utils.tintDrawable(ContextCompat.getDrawable(getActivity(), mToolbarIcons[2]), R.color.colorIcon));
+        audioNoteButton.setImageDrawable(Utils.tintDrawable(ContextCompat.getDrawable(getActivity(), mToolbarIcons[3]), R.color.colorIcon));
     }
 
     @Override
@@ -168,6 +126,10 @@ public class NoteListFragment extends BaseFragment implements View.OnClickListen
                 // launch text note activity
                 TextNoteActivity.launch(getActivity());
                 break;
+            case R.id.button_video:
+                // launch video note activity
+                VideoNoteActivity.launch(getActivity());
+                break;
             case R.id.button_photo:
                 Utils.showToast(getActivity(), "Clicked photo button");
                 break;
@@ -176,6 +138,36 @@ public class NoteListFragment extends BaseFragment implements View.OnClickListen
                 break;
         }
     }
+
+
+    /*
+            1. Fetch videos saved locally - determine path
+
+            int videoId = videoCursor.getInt(videoCursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID));
+
+            ContentResolver cr = getContentResolver();
+            BitmapFactory.Options options=new BitmapFactory.Options();
+            options.inSampleSize = 1;
+            Bitmap curThumb = MediaStore.Video.Thumbnails.getThumbnail(cr, videoId, MediaStore.Video.Thumbnails.MICRO_KIND, options);
+            thumbImage.setImageBitmap(curThumb);
+
+
+            2. display thumbnail in list item - requires path
+
+            Bitmap thumb = ThumbnailUtils.createVideoThumbnail(video_path,
+            MediaStore.Images.Thumbnails.MINI_KIND);
+
+            // check following link:
+            https://gypsynight.wordpress.com/2012/02/17/how-to-show-all-video-file-stored-in-your-sd-card-in-a-listview/
+
+
+            1. create video 'note'
+            2. search through locally saved videos and select one
+            3. save note with video path and optional title to realm
+            4. update recycler view to display thumbnail of video and title
+            5. click on thumbnail o play video
+
+     */
 
 
 }

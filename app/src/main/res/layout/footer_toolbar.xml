@@ -44,9 +44,21 @@
         android:layout_height="@dimen/button_size"/>
 
     <ImageButton
-        android:id="@+id/button_text"
+        android:id="@+id/button_video"
+        android:contentDescription="@string/image_button_description"
         android:layout_toLeftOf="@id/button_photo"
         android:layout_toStartOf="@id/button_photo"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/normal"
+        android:layout_marginRight="@dimen/normal"
+        android:background="@android:color/transparent"
+        android:layout_width="@dimen/button_size"
+        android:layout_height="@dimen/button_size"/>
+
+    <ImageButton
+        android:id="@+id/button_text"
+        android:layout_toLeftOf="@id/button_video"
+        android:layout_toStartOf="@id/button_video"
         android:layout_centerVertical="true"
         android:contentDescription="@string/image_button_description"
         android:layout_marginEnd="@dimen/normal"

@@ -7,26 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.demo.R;
 import com.example.demo.model.Note;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Random;
-
 import io.realm.Realm;
-import io.realm.RealmAsyncTask;
 import timber.log.Timber;
 
-public class TextNoteFragment extends BaseFragment implements View.OnClickListener{
+public class TextNoteFragment extends NoteFragment implements View.OnClickListener{
 
-    private Random mGenerator = new Random();
-    private Realm mRealm;
-    private RealmAsyncTask mTransaction;
-    private EditText mTitle;
-    private EditText mDescription;
+
+    private TextView mTitle;
+    private TextView mDescription;
 
     public TextNoteFragment() {}
 
@@ -34,11 +27,6 @@ public class TextNoteFragment extends BaseFragment implements View.OnClickListen
         return new TextNoteFragment();
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mRealm = Realm.getDefaultInstance();
-    }
 
     @Nullable
     @Override
@@ -51,23 +39,6 @@ public class TextNoteFragment extends BaseFragment implements View.OnClickListen
         saveButton.setOnClickListener(this);
 
         return view;
-    }
-
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mTransaction != null && !mTransaction.isCancelled())
-            mTransaction.cancel();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mRealm != null) {
-            mRealm.close();
-            mRealm = null;
-        }
     }
 
 
@@ -104,15 +75,6 @@ public class TextNoteFragment extends BaseFragment implements View.OnClickListen
         getActivity().finish();
     }
 
-    private Long setCustomId() {
-        // define an id based on the date time stamp
-        Locale locale = new Locale("en_US");
-        Locale.setDefault(locale);
-        String pattern = "yyyyMMddHHmmssSS"; // pattern used to sort objects
-        SimpleDateFormat formatter = new SimpleDateFormat(pattern, Locale.getDefault());
-
-        return Long.valueOf(formatter.format(new Date()));
-    }
 
 
 }

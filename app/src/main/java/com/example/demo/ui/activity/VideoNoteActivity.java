@@ -6,14 +6,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.example.demo.R;
-import com.example.demo.ui.fragment.TextNoteFragment;
+import com.example.demo.ui.fragment.VideoNoteFragment;
 
-public class TextNoteActivity extends NoteActivity{
+public class VideoNoteActivity extends NoteActivity{
 
     public static void launch(Activity activity) {
-        Intent intent = new Intent(activity, TextNoteActivity.class);
+        Intent intent = new Intent(activity, VideoNoteActivity.class);
         activity.startActivity(intent);
     }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -22,12 +23,9 @@ public class TextNoteActivity extends NoteActivity{
         // instantiate TextNoteFragment
         if (getSupportFragmentManager().findFragmentById(R.id.fragment_container) == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, TextNoteFragment.newInstance())
+                    .add(R.id.fragment_container, VideoNoteFragment.newInstance())
                     .commit();
         }
 
     }
-
-
-
 }

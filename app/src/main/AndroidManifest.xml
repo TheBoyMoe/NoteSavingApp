@@ -32,6 +32,15 @@
                 android:value=".ui.activity.TabActivity"/>
         </activity>
 
+        <activity
+            android:name=".ui.activity.VideoNoteActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".ui.activity.TabActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.TabActivity"/>
+        </activity>
+
     </application>
 
 </manifest>
