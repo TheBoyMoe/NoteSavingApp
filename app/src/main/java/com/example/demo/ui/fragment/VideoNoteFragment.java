@@ -11,8 +11,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.demo.R;
+import com.example.demo.ui.activity.VideoListActivity;
 
 public class VideoNoteFragment extends NoteFragment implements View.OnClickListener{
+
+    public interface NoteFragmentContract {
+        // TODO - launch VideoListActivity
+        //      - save video note to realm
+    }
 
     private TextView mTitle;
     private ImageView mThumbnail;
@@ -42,7 +48,8 @@ public class VideoNoteFragment extends NoteFragment implements View.OnClickListe
         // TODO fetch video from local store, save note to realm
         switch (view.getId()) {
             case R.id.video_note_thumbnail:
-
+                // use start activityForResult so as to get back the video uri & mimeType
+                VideoListActivity.launch(getActivity());
                 break;
             case R.id.save_note:
 

@@ -16,5 +16,7 @@
     <dimen name="button_size">40dp</dimen>
     <dimen name="item_spacer">12px</dimen>
     <dimen name="footer_toolbar_height">48dp</dimen>
+    <dimen name="column_size">120dp</dimen>
+    <dimen name="column_spacing">10dp</dimen>
 
 </resources>

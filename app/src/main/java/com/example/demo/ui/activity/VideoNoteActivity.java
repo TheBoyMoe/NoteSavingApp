@@ -15,7 +15,6 @@ public class VideoNoteActivity extends NoteActivity{
         activity.startActivity(intent);
     }
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

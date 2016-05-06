@@ -8,8 +8,6 @@ import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;
 import android.view.View;
 
-import timber.log.Timber;
-
 public class CustomScrollingViewBehaviour extends AppBarLayout.ScrollingViewBehavior {
 
     private Context mContext;
@@ -48,17 +46,14 @@ public class CustomScrollingViewBehaviour extends AppBarLayout.ScrollingViewBeha
 
     // Calculate the padding needed to keep the bottom of the view pager's content at the same location on the screen.
     private int calculateBottomPadding(AppBarLayout dependency) {
-        // TODO remove status bar height from padding calculations for api >= 21
+        // remove status bar height from padding calculations for api >= 21
         final int statusBarHeight = getStatusBarHeight();
-        Timber.i("Status bar height: %d", statusBarHeight);
         final int totalScrollRange = dependency.getTotalScrollRange();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             return totalScrollRange + dependency.getTop() - statusBarHeight;
         }
         return totalScrollRange + dependency.getTop();
     }
-
-
 
     public int getStatusBarHeight() {
         int result = 0;
