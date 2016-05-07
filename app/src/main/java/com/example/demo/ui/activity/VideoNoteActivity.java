@@ -13,13 +13,10 @@ import com.example.demo.ui.fragment.VideoNoteFragment;
 
 import java.io.File;
 
-import timber.log.Timber;
-
 public class VideoNoteActivity extends NoteActivity implements
         VideoNoteFragment.NoteFragmentContract{
 
     private String mVideoPath;
-    private String mThumbnailUri;
     private String mMimeType;
     private VideoNoteFragment mFragment;
 
@@ -35,9 +32,15 @@ public class VideoNoteActivity extends NoteActivity implements
         // instantiate TextNoteFragment
         mFragment = (VideoNoteFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if ( mFragment == null) {
+            mFragment = VideoNoteFragment.newInstance();
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, VideoNoteFragment.newInstance())
+                    .add(R.id.fragment_container, mFragment)
                     .commit();
+        }
+
+        if (savedInstanceState != null) {
+            mVideoPath = savedInstanceState.getString(Constants.VIDEO_PATH);
+            mMimeType = savedInstanceState.getString(Constants.MIME_TYPE);
         }
     }
 
@@ -48,13 +51,10 @@ public class VideoNoteActivity extends NoteActivity implements
             // extract data from intent
             mVideoPath = data.getStringExtra(Constants.VIDEO_PATH);
             mMimeType = data.getStringExtra(Constants.MIME_TYPE);
-            mThumbnailUri = data.getStringExtra(Constants.THUMBNAIL_URI);
-            Timber.i("%s: Video path: %s, mimeType: %s, thumbnailUri: %s", Constants.LOG_TAG, mVideoPath, mMimeType, mThumbnailUri);
 
-            // TODO display video thumbnail - which is in the fragment
-            Timber.i("Fragment: %s", mFragment);
+            // display video thumbnail - which is in the fragment
             if (mFragment != null)
-                mFragment.updateImageView(mThumbnailUri);
+                mFragment.updateImageView(mVideoPath);
         }
     }
 
@@ -84,7 +84,10 @@ public class VideoNoteActivity extends NoteActivity implements
         Utils.showToast(this, "Save!");
     }
 
-
-
-
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(Constants.VIDEO_PATH, mVideoPath);
+        outState.putString(Constants.MIME_TYPE, mMimeType);
+    }
 }

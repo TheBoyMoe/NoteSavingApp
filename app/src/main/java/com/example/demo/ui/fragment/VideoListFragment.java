@@ -33,12 +33,11 @@ public class VideoListFragment extends Fragment implements
     private VideoListContract mActivity;
     private GridView mGridView;
     private SimpleCursorAdapter mAdapter;
-    private Uri mThumbnailUri;
 
 
     public interface VideoListContract {
         // pass a reference to the video selected
-        void listItemClick(String videoPath, String mimeType, String thumbnailUri);
+        void listItemClick(String videoPath, String mimeType);
     }
 
     public VideoListFragment() {}
@@ -98,12 +97,12 @@ public class VideoListFragment extends Fragment implements
     @Override
     public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
         if (columnIndex == cursor.getColumnIndex(MediaStore.Video.Media._ID)) {
-            mThumbnailUri = ContentUris.withAppendedId(
+            Uri thumbnailUri = ContentUris.withAppendedId(
                     MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
                     cursor.getInt(columnIndex));
 
             Picasso.with(getActivity())
-                    .load(mThumbnailUri.toString())
+                    .load(thumbnailUri.toString())
                     .fit().centerCrop()
                     .placeholder(R.drawable.action_video)
                     .into((ImageView) view);
@@ -118,7 +117,7 @@ public class VideoListFragment extends Fragment implements
          Cursor cursor = (Cursor) parent.getAdapter().getItem(position);
          int uriColumn = cursor.getColumnIndex(MediaStore.Video.Media.DATA);
          int mimeType = cursor.getColumnIndex(MediaStore.Video.Media.MIME_TYPE);
-         mActivity.listItemClick(cursor.getString(uriColumn), cursor.getString(mimeType), mThumbnailUri.toString());
+         mActivity.listItemClick(cursor.getString(uriColumn), cursor.getString(mimeType));
      }
 
     @Override

@@ -2,7 +2,10 @@ package com.example.demo.ui.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.media.ThumbnailUtils;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.demo.R;
-import com.squareup.picasso.Picasso;
+import com.example.demo.common.Constants;
+
+import java.io.File;
 
 import timber.log.Timber;
 
@@ -22,17 +27,16 @@ public class VideoNoteFragment extends NoteFragment implements
 
 
     public interface NoteFragmentContract {
-        // TODO - launch VideoListActivity
-        //      - save video note to realm
-
         void selectVideo();
         void playVideo();
         void saveVideoNote();
     }
 
+
     private NoteFragmentContract mActivity;
     private TextView mTitle;
     private ImageView mThumbnail;
+    private String mVideoPath;
 
     public VideoNoteFragment() {}
 
@@ -51,6 +55,13 @@ public class VideoNoteFragment extends NoteFragment implements
         mThumbnail.setOnLongClickListener(this);
         Button saveButton = (Button) view.findViewById(R.id.save_note);
         saveButton.setOnClickListener(this);
+
+        if (savedInstanceState != null) {
+            // retrieve saved video path
+            mVideoPath = savedInstanceState.getString(Constants.VIDEO_PATH);
+            if (mVideoPath != null)
+                generateThumbnail();
+        }
 
         return view;
     }
@@ -96,13 +107,20 @@ public class VideoNoteFragment extends NoteFragment implements
         mActivity = null;
     }
 
-    public void updateImageView(String thumbnailPath) {
-        // update the ImageView with the selected video's thumbnail
-        Picasso.with(getActivity())
-                .load(thumbnailPath)
-                .fit().centerCrop()
-                .placeholder(R.drawable.action_video)
-                .into(mThumbnail);
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(Constants.VIDEO_PATH, mVideoPath);
+    }
+
+    public void updateImageView(String videoPath) {
+        mVideoPath = videoPath;
+        generateThumbnail();
+    }
+
+    private void generateThumbnail() {
+        Bitmap bitMap = ThumbnailUtils.createVideoThumbnail(new File(mVideoPath).getAbsolutePath(), MediaStore.Video.Thumbnails.MINI_KIND);
+        mThumbnail.setImageBitmap(bitMap);
     }
 
 
