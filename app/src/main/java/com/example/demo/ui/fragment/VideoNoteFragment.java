@@ -13,16 +13,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.demo.R;
+import com.squareup.picasso.Picasso;
 
 import timber.log.Timber;
 
-public class VideoNoteFragment extends NoteFragment implements View.OnClickListener{
+public class VideoNoteFragment extends NoteFragment implements
+        View.OnClickListener, View.OnLongClickListener{
+
 
     public interface NoteFragmentContract {
         // TODO - launch VideoListActivity
         //      - save video note to realm
 
-        void videoSelection();
+        void selectVideo();
+        void playVideo();
         void saveVideoNote();
     }
 
@@ -44,6 +48,7 @@ public class VideoNoteFragment extends NoteFragment implements View.OnClickListe
         mTitle = (EditText) view.findViewById(R.id.text_note_title);
         mThumbnail = (ImageView) view.findViewById(R.id.video_note_thumbnail);
         mThumbnail.setOnClickListener(this);
+        mThumbnail.setOnLongClickListener(this);
         Button saveButton = (Button) view.findViewById(R.id.save_note);
         saveButton.setOnClickListener(this);
 
@@ -55,15 +60,24 @@ public class VideoNoteFragment extends NoteFragment implements View.OnClickListe
         // TODO fetch video from local store, save note to realm
         switch (view.getId()) {
             case R.id.video_note_thumbnail:
-                // use start activityForResult so as to get back the video/thumbnail path/uri & mimeType
-                // VideoListActivity.launch(getActivity());
-                mActivity.videoSelection(); // allow the user to select the appropriate video
+                mActivity.playVideo();
                 break;
             case R.id.save_note:
                 mActivity.saveVideoNote(); // save note to realm
                 break;
         }
     }
+
+    @Override
+    public boolean onLongClick(View v) {
+        // allow the user to select/change the video selection
+        // use start activityForResult so as to get back the video/thumbnail path/uri & mimeType
+        if (v.getId() == R.id.video_note_thumbnail) {
+            mActivity.selectVideo();
+        }
+        return false;
+    }
+
 
     @Override
     public void onAttach(Context context) {
@@ -81,4 +95,15 @@ public class VideoNoteFragment extends NoteFragment implements View.OnClickListe
         super.onDetach();
         mActivity = null;
     }
+
+    public void updateImageView(String thumbnailPath) {
+        // update the ImageView with the selected video's thumbnail
+        Picasso.with(getActivity())
+                .load(thumbnailPath)
+                .fit().centerCrop()
+                .placeholder(R.drawable.action_video)
+                .into(mThumbnail);
+    }
+
+
 }

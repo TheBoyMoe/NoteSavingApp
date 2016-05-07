@@ -10,4 +10,7 @@
     <string name="button_save_text">Save</string>
     <string name="video_thumbnail_content_description">video thumbnail</string>
     <string name="video_list_activity_title">Pick a video</string>
+    <string name="video_selection_confirmation_title">Accept current selection</string>
+    <string name="video_selection_confirmation_ok">Accept</string>
+    <string name="video_selection_confirmation_cancel">Cancel</string>
 </resources>
