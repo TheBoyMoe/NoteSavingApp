@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.example.demo.R;
+import com.example.demo.common.Utils;
 import com.example.demo.ui.fragment.VideoNoteFragment;
 
-public class VideoNoteActivity extends NoteActivity{
+public class VideoNoteActivity extends NoteActivity implements
+        VideoNoteFragment.NoteFragmentContract{
 
     public static void launch(Activity activity) {
         Intent intent = new Intent(activity, VideoNoteActivity.class);
@@ -26,5 +28,17 @@ public class VideoNoteActivity extends NoteActivity{
                     .commit();
         }
 
+    }
+
+    // implementation of the fragment contract
+    @Override
+    public void videoSelection() {
+        VideoListActivity.launch(this);
+        Utils.showToast(this, "Video");
+    }
+
+    @Override
+    public void saveVideoNote() {
+        Utils.showToast(this, "Save!");
     }
 }

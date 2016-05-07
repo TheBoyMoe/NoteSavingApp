@@ -33,11 +33,12 @@ public class VideoListFragment extends Fragment implements
     private VideoListContract mActivity;
     private GridView mGridView;
     private SimpleCursorAdapter mAdapter;
+    private Uri mThumbnailUri;
 
 
     public interface VideoListContract {
         // pass a reference to the video selected
-        void listItemClick(String path, String mimeType);
+        void listItemClick(String videoPath, String mimeType, String thumbnailUri);
     }
 
     public VideoListFragment() {}
@@ -97,12 +98,12 @@ public class VideoListFragment extends Fragment implements
     @Override
     public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
         if (columnIndex == cursor.getColumnIndex(MediaStore.Video.Media._ID)) {
-            Uri uri = ContentUris.withAppendedId(
+            mThumbnailUri = ContentUris.withAppendedId(
                     MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
                     cursor.getInt(columnIndex));
 
             Picasso.with(getActivity())
-                    .load(uri.toString())
+                    .load(mThumbnailUri.toString())
                     .fit().centerCrop()
                     .placeholder(R.drawable.action_video)
                     .into((ImageView) view);
@@ -117,20 +118,15 @@ public class VideoListFragment extends Fragment implements
          Cursor cursor = (Cursor) parent.getAdapter().getItem(position);
          int uriColumn = cursor.getColumnIndex(MediaStore.Video.Media.DATA);
          int mimeType = cursor.getColumnIndex(MediaStore.Video.Media.MIME_TYPE);
-         //getContract().onVideoSelected(cursor.getString(uriColumn), cursor.getString(mimeType));();
-         Timber.i("Activity: %s", mActivity);
-         mActivity.listItemClick(cursor.getString(uriColumn), cursor.getString(mimeType));
+         mActivity.listItemClick(cursor.getString(uriColumn), cursor.getString(mimeType), mThumbnailUri.toString());
      }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Timber.i("onAttach executed");
-
         Activity activity = (Activity) context;
         try {
             mActivity = (VideoListContract) activity;
-            Timber.i("Activity in onAttach: %s", mActivity);
         } catch (ClassCastException e) {
             Timber.e("%s does not implement contract interface, error: %s", activity.getClass().getSimpleName(), e.getMessage());
         }

@@ -19,13 +19,15 @@ public class BaseActivity extends AppCompatActivity{
 
         // add the toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
-            if (toolbar != null)
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setDisplayShowTitleEnabled(false);
                 toolbar.setNavigationIcon(Utils.tintDrawable(ContextCompat
                         .getDrawable(this, R.drawable.action_back), R.color.colorIcon));
+                toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.colorPrimaryText));
+            }
         }
     }
 

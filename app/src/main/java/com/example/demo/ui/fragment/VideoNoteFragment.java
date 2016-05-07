@@ -1,5 +1,7 @@
 package com.example.demo.ui.fragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -11,15 +13,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.demo.R;
-import com.example.demo.ui.activity.VideoListActivity;
+
+import timber.log.Timber;
 
 public class VideoNoteFragment extends NoteFragment implements View.OnClickListener{
 
     public interface NoteFragmentContract {
         // TODO - launch VideoListActivity
         //      - save video note to realm
+
+        void videoSelection();
+        void saveVideoNote();
     }
 
+    private NoteFragmentContract mActivity;
     private TextView mTitle;
     private ImageView mThumbnail;
 
@@ -48,12 +55,30 @@ public class VideoNoteFragment extends NoteFragment implements View.OnClickListe
         // TODO fetch video from local store, save note to realm
         switch (view.getId()) {
             case R.id.video_note_thumbnail:
-                // use start activityForResult so as to get back the video uri & mimeType
-                VideoListActivity.launch(getActivity());
+                // use start activityForResult so as to get back the video/thumbnail path/uri & mimeType
+                // VideoListActivity.launch(getActivity());
+                mActivity.videoSelection(); // allow the user to select the appropriate video
                 break;
             case R.id.save_note:
-
+                mActivity.saveVideoNote(); // save note to realm
                 break;
         }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Activity activity = (Activity) context;
+        try {
+            mActivity = (NoteFragmentContract) activity;
+        } catch (ClassCastException e) {
+            Timber.e("%s does not implement contract interface, error: %s", activity.getClass().getSimpleName(), e.getMessage());
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mActivity = null;
     }
 }

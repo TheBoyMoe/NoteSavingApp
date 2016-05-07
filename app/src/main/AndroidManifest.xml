@@ -45,6 +45,7 @@
         <activity
             android:name=".ui.activity.VideoListActivity"
             android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/video_list_activity_title"
             android:parentActivityName=".ui.activity.TabActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
