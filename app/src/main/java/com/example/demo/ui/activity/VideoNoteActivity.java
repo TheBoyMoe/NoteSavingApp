@@ -9,9 +9,13 @@ import android.support.annotation.Nullable;
 import com.example.demo.R;
 import com.example.demo.common.Constants;
 import com.example.demo.common.Utils;
+import com.example.demo.model.Note;
 import com.example.demo.ui.fragment.VideoNoteFragment;
 
 import java.io.File;
+
+import io.realm.Realm;
+import timber.log.Timber;
 
 public class VideoNoteActivity extends NoteActivity implements
         VideoNoteFragment.NoteFragmentContract{
@@ -53,11 +57,11 @@ public class VideoNoteActivity extends NoteActivity implements
             // extract data from intent
             mVideoPath = data.getStringExtra(Constants.VIDEO_PATH);
             mMimeType = data.getStringExtra(Constants.MIME_TYPE);
-            mTitle = data.getStringExtra(Constants.VIDEO_TITLE);
+            String title = data.getStringExtra(Constants.VIDEO_TITLE);
 
             // display video thumbnail - which is in the fragment
             if (mFragment != null) {
-                mFragment.updateFragmentUI(mVideoPath, mTitle);
+                mFragment.updateFragmentUI(mVideoPath, title);
             }
         }
     }
@@ -83,9 +87,34 @@ public class VideoNoteActivity extends NoteActivity implements
     }
 
     @Override
-    public void saveVideoNote() {
-        // TODO save note to realm
+    public void saveVideoNote(String title) {
+        // update title, in-case it's been amended
+        mTitle = title;
+        // save note to realm
+        final Note videoNote = new Note();
+        videoNote.setId(Utils.generateCustomId());
+        videoNote.setTitle(mTitle);
+        videoNote.setVideoPath(mVideoPath);
+        videoNote.setMimeType(mMimeType);
 
+        mTransaction = mRealm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.copyToRealmOrUpdate(videoNote);
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+                Timber.i("%s: Saved title: %s, path: %s to realm", Constants.LOG_TAG, mTitle, mVideoPath);
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                Timber.e("Error writing object to realm, %s", error.getMessage());
+            }
+        });
+
+        finish();
     }
 
     @Override
@@ -95,4 +124,6 @@ public class VideoNoteActivity extends NoteActivity implements
         outState.putString(Constants.MIME_TYPE, mMimeType);
         outState.putString(Constants.VIDEO_TITLE, mTitle);
     }
+
+
 }

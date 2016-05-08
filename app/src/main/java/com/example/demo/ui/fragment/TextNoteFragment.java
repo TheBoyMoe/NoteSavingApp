@@ -48,35 +48,11 @@ public class TextNoteFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
+
         // retrieve title and description and propagate upto hosting activity
-
-        // populate the object
-        //final Long id = Utils.generateCustomId();
-        //textNote.setId(id);
         String strTitle = mTitle.getText() != null ? mTitle.getText().toString() : "";
-        //textNote.setTitle(strTitle);
         String strDescription = mDescription.getText() != null ? mDescription.getText().toString() : "";
-        //textNote.setDescription(strDescription);
-
         mActivity.saveTextNote(strTitle, strDescription);
-
-        // save the object to the realm asynchronously
-//        mTransaction = mRealm.executeTransactionAsync(new Realm.Transaction() {
-//            @Override
-//            public void execute(Realm realm) {
-//                realm.copyToRealmOrUpdate(textNote);
-//            }
-//        }, new Realm.Transaction.OnSuccess() {
-//            @Override
-//            public void onSuccess() {
-//                Timber.i("Success! id: %d, title: %s, description: %s", id, strTitle, strDescription);
-//            }
-//        }, new Realm.Transaction.OnError() {
-//            @Override
-//            public void onError(Throwable error) {
-//                Timber.e("Error writing object to realm, %s", error.getMessage());
-//            }
-//        });
 
         getActivity().finish();
     }

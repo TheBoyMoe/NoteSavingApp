@@ -139,35 +139,4 @@ public class NoteListFragment extends BaseFragment implements View.OnClickListen
         }
     }
 
-
-    /*
-            1. Fetch videos saved locally - determine path
-
-            int videoId = videoCursor.getInt(videoCursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID));
-
-            ContentResolver cr = getContentResolver();
-            BitmapFactory.Options options=new BitmapFactory.Options();
-            options.inSampleSize = 1;
-            Bitmap curThumb = MediaStore.Video.Thumbnails.getThumbnail(cr, videoId, MediaStore.Video.Thumbnails.MICRO_KIND, options);
-            thumbImage.setImageBitmap(curThumb);
-
-
-            2. display thumbnail in list item - requires path
-
-            Bitmap thumb = ThumbnailUtils.createVideoThumbnail(video_path,
-            MediaStore.Images.Thumbnails.MINI_KIND);
-
-            // check following link:
-            https://gypsynight.wordpress.com/2012/02/17/how-to-show-all-video-file-stored-in-your-sd-card-in-a-listview/
-
-
-            1. create video 'note'
-            2. search through locally saved videos and select one
-            3. save note with video path and optional title to realm
-            4. update recycler view to display thumbnail of video and title
-            5. click on thumbnail o play video
-
-     */
-
-
 }

@@ -7,6 +7,8 @@ import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,15 +25,15 @@ import java.io.File;
 import timber.log.Timber;
 
 public class VideoNoteFragment extends BaseFragment implements
-        View.OnClickListener, View.OnLongClickListener{
+        View.OnClickListener, View.OnLongClickListener, TextWatcher{
+
 
 
     public interface NoteFragmentContract {
         void selectVideo();
         void playVideo();
-        void saveVideoNote();
+        void saveVideoNote(String title);
     }
-
 
     private NoteFragmentContract mActivity;
     private TextView mTitle;
@@ -51,6 +53,7 @@ public class VideoNoteFragment extends BaseFragment implements
         View view = inflater.inflate(R.layout.fragment_video_note, container, false);
 
         mTitle = (EditText) view.findViewById(R.id.text_note_title);
+        mTitle.addTextChangedListener(this);
         mThumbnail = (ImageView) view.findViewById(R.id.video_note_thumbnail);
         mThumbnail.setOnClickListener(this);
         mThumbnail.setOnLongClickListener(this);
@@ -71,7 +74,22 @@ public class VideoNoteFragment extends BaseFragment implements
         return view;
     }
 
-    // TODO add a listener to EditTextView
+    // add a listener to EditTextView
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        // no-op
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        // update title text when amended by user
+        mVideoTitle = s.toString();
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        // no-op
+    }
 
     @Override
     public void onClick(View view) {
@@ -80,7 +98,8 @@ public class VideoNoteFragment extends BaseFragment implements
                 mActivity.playVideo();
                 break;
             case R.id.save_note:
-                mActivity.saveVideoNote(); // save note to realm
+                // save note to realm with the updated title
+                mActivity.saveVideoNote(mVideoTitle);
                 break;
         }
     }
@@ -94,7 +113,6 @@ public class VideoNoteFragment extends BaseFragment implements
         }
         return false;
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -121,6 +139,7 @@ public class VideoNoteFragment extends BaseFragment implements
     }
 
     public void updateFragmentUI(String videoPath, String title) {
+        // update EditText and ImageView elements
         mVideoPath = videoPath;
         mVideoTitle = title;
         mTitle.setText(mVideoTitle);
