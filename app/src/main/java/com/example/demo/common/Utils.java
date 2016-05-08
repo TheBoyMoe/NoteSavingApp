@@ -14,6 +14,10 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class Utils {
 
     private Utils() {
@@ -48,6 +52,16 @@ public class Utils {
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
         return  activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    }
+
+    public static Long generateCustomId() {
+        // define an id based on the date time stamp
+        Locale locale = new Locale("en_US");
+        Locale.setDefault(locale);
+        String pattern = "yyyyMMddHHmmssSS"; // pattern used to sort objects
+        SimpleDateFormat formatter = new SimpleDateFormat(pattern, Locale.getDefault());
+
+        return Long.valueOf(formatter.format(new Date()));
     }
 
 }

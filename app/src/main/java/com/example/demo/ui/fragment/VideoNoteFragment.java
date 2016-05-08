@@ -22,7 +22,7 @@ import java.io.File;
 
 import timber.log.Timber;
 
-public class VideoNoteFragment extends NoteFragment implements
+public class VideoNoteFragment extends BaseFragment implements
         View.OnClickListener, View.OnLongClickListener{
 
 

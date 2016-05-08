@@ -12,8 +12,17 @@ public class Note extends RealmObject{
     private String mImagePath;
     private String mVideoPath;
     private String mAudioPath;
+    private String mMimeType;
 
     public Note() {  }
+
+    public String getMimeType() {
+        return mMimeType;
+    }
+
+    public void setMimeType(String mimeType) {
+        mMimeType = mimeType;
+    }
 
     public String getTitle() {
         return mTitle;

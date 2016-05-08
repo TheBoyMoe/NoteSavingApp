@@ -85,7 +85,7 @@ public class VideoNoteActivity extends NoteActivity implements
     @Override
     public void saveVideoNote() {
         // TODO save note to realm
-        Utils.showToast(this, "Save!");
+
     }
 
     @Override

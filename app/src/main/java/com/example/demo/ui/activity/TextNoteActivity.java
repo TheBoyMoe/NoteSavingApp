@@ -6,9 +6,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.example.demo.R;
+import com.example.demo.common.Constants;
+import com.example.demo.common.Utils;
+import com.example.demo.model.Note;
 import com.example.demo.ui.fragment.TextNoteFragment;
 
-public class TextNoteActivity extends NoteActivity{
+import io.realm.Realm;
+import timber.log.Timber;
+
+public class TextNoteActivity extends NoteActivity implements
+        TextNoteFragment.TextNoteContract{
 
     public static void launch(Activity activity) {
         Intent intent = new Intent(activity, TextNoteActivity.class);
@@ -29,5 +36,32 @@ public class TextNoteActivity extends NoteActivity{
     }
 
 
+    @Override
+    public void saveTextNote(final String title, final String description) {
+        // save note to realm
+        final Note textNote = new Note();
+        textNote.setId(Utils.generateCustomId());
+        textNote.setTitle(title);
+        textNote.setDescription(description);
+
+        mTransaction = mRealm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.copyToRealmOrUpdate(textNote);
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+                Timber.i("%s: Success! title: %s, description: %s", Constants.LOG_TAG, title, description);
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                Timber.e("Error writing object to realm, %s", error.getMessage());
+            }
+        });
+
+        finish();
+    }
 
 }
