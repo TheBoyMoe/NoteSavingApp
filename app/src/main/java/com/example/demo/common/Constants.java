@@ -9,5 +9,6 @@ public class Constants {
     public static final int VIDEO_SELECTION = 100;
     public static final String VIDEO_PATH = "video_path";
     public static final String MIME_TYPE = "mime_type";
+    public static final String VIDEO_TITLE = "video_title";
 
 }

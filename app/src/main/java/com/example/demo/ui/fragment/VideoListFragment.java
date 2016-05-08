@@ -37,7 +37,7 @@ public class VideoListFragment extends Fragment implements
 
     public interface VideoListContract {
         // pass a reference to the video selected
-        void listItemClick(String videoPath, String mimeType);
+        void listItemClick(String videoPath, String mimeType, String title);
     }
 
     public VideoListFragment() {}
@@ -117,7 +117,8 @@ public class VideoListFragment extends Fragment implements
          Cursor cursor = (Cursor) parent.getAdapter().getItem(position);
          int uriColumn = cursor.getColumnIndex(MediaStore.Video.Media.DATA);
          int mimeType = cursor.getColumnIndex(MediaStore.Video.Media.MIME_TYPE);
-         mActivity.listItemClick(cursor.getString(uriColumn), cursor.getString(mimeType));
+         int title = cursor.getColumnIndex(MediaStore.Video.Media.TITLE);
+         mActivity.listItemClick(cursor.getString(uriColumn), cursor.getString(mimeType), cursor.getString(title));
      }
 
     @Override

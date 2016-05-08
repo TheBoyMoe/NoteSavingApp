@@ -26,11 +26,12 @@ public class VideoListActivity extends NoteActivity implements
 
     // implementation of VideoListContract
     @Override
-    public void listItemClick(String path, String mimeType) {
+    public void listItemClick(String path, String mimeType, String title) {
         // return path/mimeType to calling activity (VideoNoteActivity)
         mVideoIntent = new Intent();
         mVideoIntent.putExtra(Constants.VIDEO_PATH, path);
         mVideoIntent.putExtra(Constants.MIME_TYPE, mimeType);
+        mVideoIntent.putExtra(Constants.VIDEO_TITLE, title);
 
         // show video selection confirmation dialog
         DialogFragment dialog = new VideoSelectionDialog();

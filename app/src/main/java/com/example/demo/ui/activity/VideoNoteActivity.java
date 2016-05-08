@@ -18,6 +18,7 @@ public class VideoNoteActivity extends NoteActivity implements
 
     private String mVideoPath;
     private String mMimeType;
+    private String mTitle;
     private VideoNoteFragment mFragment;
 
     public static void launch(Activity activity) {
@@ -41,6 +42,7 @@ public class VideoNoteActivity extends NoteActivity implements
         if (savedInstanceState != null) {
             mVideoPath = savedInstanceState.getString(Constants.VIDEO_PATH);
             mMimeType = savedInstanceState.getString(Constants.MIME_TYPE);
+            mTitle = savedInstanceState.getString(Constants.VIDEO_TITLE);
         }
     }
 
@@ -51,10 +53,12 @@ public class VideoNoteActivity extends NoteActivity implements
             // extract data from intent
             mVideoPath = data.getStringExtra(Constants.VIDEO_PATH);
             mMimeType = data.getStringExtra(Constants.MIME_TYPE);
+            mTitle = data.getStringExtra(Constants.VIDEO_TITLE);
 
             // display video thumbnail - which is in the fragment
-            if (mFragment != null)
-                mFragment.updateImageView(mVideoPath);
+            if (mFragment != null) {
+                mFragment.updateFragmentUI(mVideoPath, mTitle);
+            }
         }
     }
 
@@ -89,5 +93,6 @@ public class VideoNoteActivity extends NoteActivity implements
         super.onSaveInstanceState(outState);
         outState.putString(Constants.VIDEO_PATH, mVideoPath);
         outState.putString(Constants.MIME_TYPE, mMimeType);
+        outState.putString(Constants.VIDEO_TITLE, mTitle);
     }
 }

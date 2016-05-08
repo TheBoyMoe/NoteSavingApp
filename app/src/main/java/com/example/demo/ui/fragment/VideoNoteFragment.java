@@ -37,6 +37,7 @@ public class VideoNoteFragment extends NoteFragment implements
     private TextView mTitle;
     private ImageView mThumbnail;
     private String mVideoPath;
+    private String mVideoTitle;
 
     public VideoNoteFragment() {}
 
@@ -57,6 +58,10 @@ public class VideoNoteFragment extends NoteFragment implements
         saveButton.setOnClickListener(this);
 
         if (savedInstanceState != null) {
+            mVideoTitle = savedInstanceState.getString(Constants.VIDEO_TITLE);
+            if (mVideoTitle != null) {
+                mTitle.setText(mVideoTitle);
+            }
             // retrieve saved video path
             mVideoPath = savedInstanceState.getString(Constants.VIDEO_PATH);
             if (mVideoPath != null)
@@ -66,9 +71,10 @@ public class VideoNoteFragment extends NoteFragment implements
         return view;
     }
 
+    // TODO add a listener to EditTextView
+
     @Override
     public void onClick(View view) {
-        // TODO fetch video from local store, save note to realm
         switch (view.getId()) {
             case R.id.video_note_thumbnail:
                 mActivity.playVideo();
@@ -111,10 +117,13 @@ public class VideoNoteFragment extends NoteFragment implements
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(Constants.VIDEO_PATH, mVideoPath);
+        outState.putString(Constants.VIDEO_TITLE, mVideoTitle);
     }
 
-    public void updateImageView(String videoPath) {
+    public void updateFragmentUI(String videoPath, String title) {
         mVideoPath = videoPath;
+        mVideoTitle = title;
+        mTitle.setText(mVideoTitle);
         generateThumbnail();
     }
 
