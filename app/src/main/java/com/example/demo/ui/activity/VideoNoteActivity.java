@@ -34,7 +34,7 @@ public class VideoNoteActivity extends NoteActivity implements
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // instantiate TextNoteFragment
+        // instantiate QuotationNoteFragment
         mFragment = (VideoNoteFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if ( mFragment == null) {
             mFragment = VideoNoteFragment.newInstance();
@@ -93,8 +93,9 @@ public class VideoNoteActivity extends NoteActivity implements
         // save note to realm
         final Note videoNote = new Note();
         videoNote.setId(Utils.generateCustomId());
-        videoNote.setTitle(mTitle);
-        videoNote.setVideoPath(mVideoPath);
+        videoNote.setType(Constants.NOTE_VIDEO);
+        videoNote.setTextField1(mTitle);
+        videoNote.setFilePath(mVideoPath);
         videoNote.setMimeType(mMimeType);
 
         mTransaction = mRealm.executeTransactionAsync(new Realm.Transaction() {

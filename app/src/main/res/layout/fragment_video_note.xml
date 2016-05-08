@@ -12,8 +12,8 @@
         android:layout_marginBottom="@dimen/normal">
 
         <EditText
-            android:id="@+id/text_note_title"
-            android:hint="@string/text_note_title_hint"
+            android:id="@+id/video_note_title"
+            android:hint="@string/video_note_title_hint"
             style="@style/TextStyle.TextNote.Title"
             android:imeOptions="actionDone"/>
 

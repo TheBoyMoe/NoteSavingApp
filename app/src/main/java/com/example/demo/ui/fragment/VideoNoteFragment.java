@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.demo.R;
 import com.example.demo.common.Constants;
@@ -28,7 +27,6 @@ public class VideoNoteFragment extends BaseFragment implements
         View.OnClickListener, View.OnLongClickListener, TextWatcher{
 
 
-
     public interface NoteFragmentContract {
         void selectVideo();
         void playVideo();
@@ -36,7 +34,7 @@ public class VideoNoteFragment extends BaseFragment implements
     }
 
     private NoteFragmentContract mActivity;
-    private TextView mTitle;
+    private EditText mTitle;
     private ImageView mThumbnail;
     private String mVideoPath;
     private String mVideoTitle;
@@ -52,7 +50,7 @@ public class VideoNoteFragment extends BaseFragment implements
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_video_note, container, false);
 
-        mTitle = (EditText) view.findViewById(R.id.text_note_title);
+        mTitle = (EditText) view.findViewById(R.id.video_note_title);
         mTitle.addTextChangedListener(this);
         mThumbnail = (ImageView) view.findViewById(R.id.video_note_thumbnail);
         mThumbnail.setOnClickListener(this);

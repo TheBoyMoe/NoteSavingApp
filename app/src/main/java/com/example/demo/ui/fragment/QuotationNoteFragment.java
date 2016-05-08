@@ -9,36 +9,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.demo.R;
 
 import timber.log.Timber;
 
-public class TextNoteFragment extends BaseFragment implements View.OnClickListener{
+public class QuotationNoteFragment extends BaseFragment implements View.OnClickListener{
 
     public interface TextNoteContract {
-        void saveTextNote(String title, String description);
+        void saveTextNote(String quote, String citation);
     }
 
     private TextNoteContract mActivity;
-    private TextView mTitle;
-    private TextView mDescription;
+    private EditText mQuote;
+    private EditText mCitation;
 
-    public TextNoteFragment() {}
+    public QuotationNoteFragment() {}
 
-    public static TextNoteFragment newInstance() {
-        return new TextNoteFragment();
+    public static QuotationNoteFragment newInstance() {
+        return new QuotationNoteFragment();
     }
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_text_note, container, false);
+        View view = inflater.inflate(R.layout.fragment_quotation_note, container, false);
 
-        mTitle = (EditText) view.findViewById(R.id.text_note_title);
-        mDescription = (EditText) view.findViewById(R.id.text_note_description);
+        mQuote = (EditText) view.findViewById(R.id.quotation_note_text);
+        mCitation = (EditText) view.findViewById(R.id.citation_note_text);
         Button saveButton = (Button) view.findViewById(R.id.save_note);
         saveButton.setOnClickListener(this);
 
@@ -50,8 +49,8 @@ public class TextNoteFragment extends BaseFragment implements View.OnClickListen
     public void onClick(View v) {
 
         // retrieve title and description and propagate upto hosting activity
-        String strTitle = mTitle.getText() != null ? mTitle.getText().toString() : "";
-        String strDescription = mDescription.getText() != null ? mDescription.getText().toString() : "";
+        String strTitle = mQuote.getText() != null ? mQuote.getText().toString() : "";
+        String strDescription = mCitation.getText() != null ? mCitation.getText().toString() : "";
         mActivity.saveTextNote(strTitle, strDescription);
 
         getActivity().finish();

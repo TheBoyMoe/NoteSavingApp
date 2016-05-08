@@ -12,8 +12,8 @@
         android:layout_marginBottom="@dimen/normal">
 
         <EditText
-            android:id="@+id/text_note_title"
-            android:hint="@string/text_note_title_hint"
+            android:id="@+id/quotation_note_text"
+            android:hint="@string/text_note_quote_hint"
             style="@style/TextStyle.TextNote.Title"
             android:imeOptions="actionDone"/>
 
@@ -25,8 +25,8 @@
         android:layout_marginBottom="@dimen/large">
 
         <EditText
-            android:id="@+id/text_note_description"
-            android:hint="@string/text_note_description_hint"
+            android:id="@+id/citation_note_text"
+            android:hint="@string/text_note_citation_hint"
             style="@style/TextStyle.TextNote.Description"
             android:imeOptions="actionDone"/>
 

@@ -33,7 +33,8 @@ public class CustomRealmViewAdapter extends RealmBasedRecyclerViewAdapter<Note, 
 
     @Override
     public CustomRealmViewHolder onCreateRealmViewHolder(ViewGroup viewGroup, int viewType) {
-        View view = inflater.inflate(R.layout.note_list_item, viewGroup, false);
+        // define which layout to use depending on the viewType, by default it's 0
+        View view = inflater.inflate(R.layout.text_note_item, viewGroup, false);
         return new CustomRealmViewHolder(view);
     }
 
@@ -41,6 +42,11 @@ public class CustomRealmViewAdapter extends RealmBasedRecyclerViewAdapter<Note, 
     public void onBindRealmViewHolder(CustomRealmViewHolder holder, int position) {
         Note note = mResults.get(position);
         holder.bindViewHolder(note, position);
+    }
+
+    @Override
+    public int getItemRealmViewType(int position) {
+        return super.getItemRealmViewType(position);
     }
 
     public class CustomRealmViewHolder extends RealmViewHolder implements View.OnClickListener{
@@ -53,14 +59,14 @@ public class CustomRealmViewAdapter extends RealmBasedRecyclerViewAdapter<Note, 
         public CustomRealmViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            title = (TextView) itemView.findViewById(R.id.item_title);
-            description = (TextView) itemView.findViewById(R.id.item_description);
+            title = (TextView) itemView.findViewById(R.id.text_field_one);
+            description = (TextView) itemView.findViewById(R.id.text_field_two);
         }
 
         public void bindViewHolder(Note note, int position) {
             this.position = position;
-            title.setText(note.getTitle());
-            description.setText(note.getDescription());
+            title.setText(note.getTextField1());
+            description.setText(note.getTextField2());
             // TODO add icon
         }
 

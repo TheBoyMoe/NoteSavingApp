@@ -13,7 +13,7 @@ import com.example.demo.common.Utils;
 import com.example.demo.custom.CustomItemDecoration;
 import com.example.demo.custom.CustomRealmViewAdapter;
 import com.example.demo.model.Note;
-import com.example.demo.ui.activity.TextNoteActivity;
+import com.example.demo.ui.activity.QuotationNoteActivity;
 import com.example.demo.ui.activity.VideoNoteActivity;
 
 import co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView;
@@ -124,17 +124,17 @@ public class NoteListFragment extends BaseFragment implements View.OnClickListen
         switch (view.getId()) {
             case R.id.button_text:
                 // launch text note activity
-                TextNoteActivity.launch(getActivity());
+                QuotationNoteActivity.launch(getActivity());
                 break;
             case R.id.button_video:
                 // launch video note activity
                 VideoNoteActivity.launch(getActivity());
                 break;
             case R.id.button_photo:
-                Utils.showToast(getActivity(), "Clicked photo button");
+                Utils.showToast(getActivity(), "Feature to be added");
                 break;
             case R.id.button_audio:
-                Utils.showToast(getActivity(), "Clicked audio button");
+                Utils.showToast(getActivity(), "Feature to be added");
                 break;
         }
     }

@@ -9,16 +9,16 @@ import com.example.demo.R;
 import com.example.demo.common.Constants;
 import com.example.demo.common.Utils;
 import com.example.demo.model.Note;
-import com.example.demo.ui.fragment.TextNoteFragment;
+import com.example.demo.ui.fragment.QuotationNoteFragment;
 
 import io.realm.Realm;
 import timber.log.Timber;
 
-public class TextNoteActivity extends NoteActivity implements
-        TextNoteFragment.TextNoteContract{
+public class QuotationNoteActivity extends NoteActivity implements
+        QuotationNoteFragment.TextNoteContract{
 
     public static void launch(Activity activity) {
-        Intent intent = new Intent(activity, TextNoteActivity.class);
+        Intent intent = new Intent(activity, QuotationNoteActivity.class);
         activity.startActivity(intent);
     }
 
@@ -26,10 +26,10 @@ public class TextNoteActivity extends NoteActivity implements
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // instantiate TextNoteFragment
+        // instantiate QuotationNoteFragment
         if (getSupportFragmentManager().findFragmentById(R.id.fragment_container) == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, TextNoteFragment.newInstance())
+                    .add(R.id.fragment_container, QuotationNoteFragment.newInstance())
                     .commit();
         }
 
@@ -37,12 +37,13 @@ public class TextNoteActivity extends NoteActivity implements
 
 
     @Override
-    public void saveTextNote(final String title, final String description) {
+    public void saveTextNote(final String quote, final String citation) {
         // save note to realm
         final Note textNote = new Note();
         textNote.setId(Utils.generateCustomId());
-        textNote.setTitle(title);
-        textNote.setDescription(description);
+        textNote.setType(Constants.NOTE_QUOTATION);
+        textNote.setTextField1(quote);
+        textNote.setTextField2(citation);
 
         mTransaction = mRealm.executeTransactionAsync(new Realm.Transaction() {
             @Override
@@ -52,7 +53,7 @@ public class TextNoteActivity extends NoteActivity implements
         }, new Realm.Transaction.OnSuccess() {
             @Override
             public void onSuccess() {
-                Timber.i("%s: Success! title: %s, description: %s", Constants.LOG_TAG, title, description);
+                Timber.i("%s: Success! title: %s, description: %s", Constants.LOG_TAG, quote, citation);
             }
         }, new Realm.Transaction.OnError() {
             @Override

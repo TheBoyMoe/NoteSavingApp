@@ -7,37 +7,20 @@ public class Note extends RealmObject{
 
     @PrimaryKey
     private Long mId;
-    private String mTitle;
-    private String mDescription;
-    private String mImagePath;
-    private String mVideoPath;
-    private String mAudioPath;
+    private String mType;
+    private String mTextField1;
+    private String mTextField2;
+    private String mFilePath;
     private String mMimeType;
 
     public Note() {  }
 
-    public String getMimeType() {
-        return mMimeType;
+    public String getType() {
+        return mType;
     }
 
-    public void setMimeType(String mimeType) {
-        mMimeType = mimeType;
-    }
-
-    public String getTitle() {
-        return mTitle;
-    }
-
-    public void setTitle(String title) {
-        mTitle = title;
-    }
-
-    public String getDescription() {
-        return mDescription;
-    }
-
-    public void setDescription(String description) {
-        mDescription = description;
+    public void setType(String type) {
+        mType = type;
     }
 
     public Long getId() {
@@ -48,33 +31,41 @@ public class Note extends RealmObject{
         mId = id;
     }
 
-    public String getImagePath() {
-        return mImagePath;
+    public String getTextField1() {
+        return mTextField1;
     }
 
-    public void setImagePath(String imagePath) {
-        mImagePath = imagePath;
+    public void setTextField1(String textField1) {
+        mTextField1 = textField1;
     }
 
-    public String getVideoPath() {
-        return mVideoPath;
+    public String getTextField2() {
+        return mTextField2;
     }
 
-    public void setVideoPath(String videoPath) {
-        mVideoPath = videoPath;
+    public void setTextField2(String textField2) {
+        mTextField2 = textField2;
     }
 
-    public String getAudioPath() {
-        return mAudioPath;
+    public String getFilePath() {
+        return mFilePath;
     }
 
-    public void setAudioPath(String audioPath) {
-        mAudioPath = audioPath;
+    public void setFilePath(String filePath) {
+        mFilePath = filePath;
+    }
+
+    public String getMimeType() {
+        return mMimeType;
+    }
+
+    public void setMimeType(String mimeType) {
+        mMimeType = mimeType;
     }
 
     @Override
     public String toString() {
-        return getTitle();
+        return String.format("%s %s", getTextField1(), getTextField2());
     }
 
 }
