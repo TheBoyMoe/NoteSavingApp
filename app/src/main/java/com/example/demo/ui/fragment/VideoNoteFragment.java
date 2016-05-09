@@ -140,9 +140,5 @@ public class VideoNoteFragment extends BaseFragment implements
         mThumbnail.setImageBitmap(Utils.generateBitmap(mVideoPath));
     }
 
-//    private Bitmap generateBitmap() {
-//        return ThumbnailUtils.createVideoThumbnail(new File(mVideoPath).getAbsolutePath(), MediaStore.Video.Thumbnails.MINI_KIND);
-//    }
-
 
 }

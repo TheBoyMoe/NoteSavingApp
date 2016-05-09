@@ -11,9 +11,7 @@ public class Constants {
     public static final String MIME_TYPE = "mime_type";
     public static final String VIDEO_TITLE = "video_title";
 
-    public static final String NOTE_QUOTATION = "quotation";
-    public static final String NOTE_VIDEO = "video";
-    public static final String NOTE_AUDIO = "audio";
-    public static final String NOTE_IMAGE = "image";
+    public static final int MEDIA_TYPE = 1;
+    public static final int TEXT_TYPE = 2;
 
 }

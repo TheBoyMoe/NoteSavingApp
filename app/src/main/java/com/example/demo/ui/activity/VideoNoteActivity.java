@@ -9,7 +9,7 @@ import android.support.annotation.Nullable;
 import com.example.demo.R;
 import com.example.demo.common.Constants;
 import com.example.demo.common.Utils;
-import com.example.demo.model.MediaNote;
+import com.example.demo.model.Note;
 import com.example.demo.ui.fragment.VideoNoteFragment;
 
 import java.io.File;
@@ -91,8 +91,9 @@ public class VideoNoteActivity extends NoteActivity implements
         // update title, in-case it's been amended
         mTitle = title;
         // save note to realm
-        final MediaNote videoNote = new MediaNote();
+        final Note videoNote = new Note();
         videoNote.setId(Utils.generateCustomId());
+        videoNote.setViewType(Constants.MEDIA_TYPE);
         videoNote.setTextField1(mTitle);
         videoNote.setFilePath(mVideoPath);
         videoNote.setMimeType(mMimeType);
