@@ -3,17 +3,21 @@ package com.example.demo.common;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.media.ThumbnailUtils;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.IBinder;
+import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -62,6 +66,11 @@ public class Utils {
         SimpleDateFormat formatter = new SimpleDateFormat(pattern, Locale.getDefault());
 
         return Long.valueOf(formatter.format(new Date()));
+    }
+
+
+    public static Bitmap generateBitmap(String path) {
+        return ThumbnailUtils.createVideoThumbnail(new File(path).getAbsolutePath(), MediaStore.Video.Thumbnails.MINI_KIND);
     }
 
 }

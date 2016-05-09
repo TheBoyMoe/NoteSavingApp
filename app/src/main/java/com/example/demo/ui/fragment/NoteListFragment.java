@@ -12,13 +12,13 @@ import com.example.demo.R;
 import com.example.demo.common.Utils;
 import com.example.demo.custom.CustomItemDecoration;
 import com.example.demo.custom.CustomRealmViewAdapter;
-import com.example.demo.model.Note;
 import com.example.demo.ui.activity.QuotationNoteActivity;
 import com.example.demo.ui.activity.VideoNoteActivity;
 
 import co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView;
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
+import io.realm.RealmObject;
 import io.realm.RealmResults;
 
 public class NoteListFragment extends BaseFragment implements View.OnClickListener{
@@ -31,7 +31,7 @@ public class NoteListFragment extends BaseFragment implements View.OnClickListen
     };
     private Realm mRealm;
     private CustomRealmViewAdapter mAdapter;
-    private RealmResults<Note> mResults;
+    private RealmResults<RealmObject> mResults;
     private RealmChangeListener mCallback = new RealmChangeListener() {
         @Override
         public void onChange() {
@@ -71,7 +71,7 @@ public class NoteListFragment extends BaseFragment implements View.OnClickListen
     public void onStart() {
         super.onStart();
         // set the query and a callback whenever the query has completed and every time the realm is updated
-        mResults = mRealm.where(Note.class).findAllAsync();
+        mResults = mRealm.where(RealmObject.class).findAllAsync();
         mResults.addChangeListener(mCallback);
 
         // instantiate and bind adapter

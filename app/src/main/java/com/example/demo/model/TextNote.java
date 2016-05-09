@@ -3,17 +3,14 @@ package com.example.demo.model;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class Note extends RealmObject{
+public class TextNote extends RealmObject{
 
     @PrimaryKey
     private Long mId;
-    private int mViewType;
     private String mTextField1;
     private String mTextField2;
-    private String mFilePath;
-    private String mMimeType;
 
-    public Note() {}
+    public TextNote() {  }
 
     public Long getId() {
         return mId;
@@ -21,14 +18,6 @@ public class Note extends RealmObject{
 
     public void setId(Long id) {
         mId = id;
-    }
-
-    public int getViewType() {
-        return mViewType;
-    }
-
-    public void setViewType(int viewType) {
-        mViewType = viewType;
     }
 
     public String getTextField1() {
@@ -47,24 +36,9 @@ public class Note extends RealmObject{
         mTextField2 = textField2;
     }
 
-    public String getFilePath() {
-        return mFilePath;
-    }
-
-    public void setFilePath(String filePath) {
-        mFilePath = filePath;
-    }
-
-    public String getMimeType() {
-        return mMimeType;
-    }
-
-    public void setMimeType(String mimeType) {
-        mMimeType = mimeType;
-    }
-
     @Override
     public String toString() {
-        return getTextField1();
+        return String.format("%s %s", getTextField1(), getTextField2());
     }
+
 }

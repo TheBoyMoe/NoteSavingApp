@@ -8,7 +8,7 @@ import android.support.annotation.Nullable;
 import com.example.demo.R;
 import com.example.demo.common.Constants;
 import com.example.demo.common.Utils;
-import com.example.demo.model.Note;
+import com.example.demo.model.TextNote;
 import com.example.demo.ui.fragment.QuotationNoteFragment;
 
 import io.realm.Realm;
@@ -39,9 +39,8 @@ public class QuotationNoteActivity extends NoteActivity implements
     @Override
     public void saveTextNote(final String quote, final String citation) {
         // save note to realm
-        final Note textNote = new Note();
+        final TextNote textNote = new TextNote();
         textNote.setId(Utils.generateCustomId());
-        textNote.setType(Constants.NOTE_QUOTATION);
         textNote.setTextField1(quote);
         textNote.setTextField2(citation);
 

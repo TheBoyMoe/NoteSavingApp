@@ -2,10 +2,7 @@ package com.example.demo.ui.fragment;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.media.ThumbnailUtils;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,8 +15,7 @@ import android.widget.ImageView;
 
 import com.example.demo.R;
 import com.example.demo.common.Constants;
-
-import java.io.File;
+import com.example.demo.common.Utils;
 
 import timber.log.Timber;
 
@@ -66,7 +62,7 @@ public class VideoNoteFragment extends BaseFragment implements
             // retrieve saved video path
             mVideoPath = savedInstanceState.getString(Constants.VIDEO_PATH);
             if (mVideoPath != null)
-                generateThumbnail();
+                mThumbnail.setImageBitmap(Utils.generateBitmap(mVideoPath));
         }
 
         return view;
@@ -141,13 +137,12 @@ public class VideoNoteFragment extends BaseFragment implements
         mVideoPath = videoPath;
         mVideoTitle = title;
         mTitle.setText(mVideoTitle);
-        generateThumbnail();
+        mThumbnail.setImageBitmap(Utils.generateBitmap(mVideoPath));
     }
 
-    private void generateThumbnail() {
-        Bitmap bitMap = ThumbnailUtils.createVideoThumbnail(new File(mVideoPath).getAbsolutePath(), MediaStore.Video.Thumbnails.MINI_KIND);
-        mThumbnail.setImageBitmap(bitMap);
-    }
+//    private Bitmap generateBitmap() {
+//        return ThumbnailUtils.createVideoThumbnail(new File(mVideoPath).getAbsolutePath(), MediaStore.Video.Thumbnails.MINI_KIND);
+//    }
 
 
 }
