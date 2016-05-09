@@ -1,6 +1,8 @@
 package com.example.demo.custom;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -10,6 +12,8 @@ import com.example.demo.R;
 import com.example.demo.common.Constants;
 import com.example.demo.common.Utils;
 import com.example.demo.model.Note;
+
+import java.io.File;
 
 import io.realm.RealmBasedRecyclerViewAdapter;
 import io.realm.RealmResults;
@@ -108,10 +112,18 @@ public class CustomRealmViewAdapter extends RealmBasedRecyclerViewAdapter<Note, 
         public void onClick(View v) {
             switch (viewType) {
                 case Constants.TEXT_TYPE:
+                    // TODO launch Activity/Fragment showing Detail view of note
                     Utils.showToast(mContext, "Clicked on quote: " + position);
                     break;
                 case Constants.MEDIA_TYPE:
-                    Utils.showToast(mContext, "Clicked on thumbnail: " + position);
+                    // launch default media player
+                    // TODO check if there is a media player installed
+                    if(filePath != null && mimeType != null) {
+                        Uri video = Uri.fromFile(new File(filePath));
+                        Intent videoIntent = new Intent(Intent.ACTION_VIEW);
+                        videoIntent.setDataAndType(video, mimeType);
+                        mContext.startActivity(videoIntent);
+                    }
                     break;
             }
         }
