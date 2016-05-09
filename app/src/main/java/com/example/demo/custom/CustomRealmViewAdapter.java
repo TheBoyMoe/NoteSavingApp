@@ -100,7 +100,7 @@ public class CustomRealmViewAdapter extends RealmBasedRecyclerViewAdapter<Note, 
                 textField2.setText(note.getTextField2());
             } else {
                 if (mResults.get(position).getViewType() == Constants.MEDIA_TYPE) {
-                    textField1.setText(note.getTextField1());
+                    //textField1.setText(note.getTextField1());
                     filePath = note.getFilePath();
                     thumbnail.setImageBitmap(Utils.generateBitmap(filePath));
                     mimeType = note.getMimeType();

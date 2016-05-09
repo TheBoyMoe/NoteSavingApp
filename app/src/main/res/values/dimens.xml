@@ -19,5 +19,6 @@
     <dimen name="column_size">120dp</dimen>
     <dimen name="grid_column_size">160dp</dimen>
     <dimen name="column_spacing">10dp</dimen>
+    <dimen name="play_icon_size">32dp</dimen>
 
 </resources>

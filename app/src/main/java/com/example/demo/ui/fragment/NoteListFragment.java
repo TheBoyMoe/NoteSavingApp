@@ -57,7 +57,6 @@ public class NoteListFragment extends BaseFragment implements View.OnClickListen
         setupFooterToolbarButtons(view);
         mRecyclerView = (RealmRecyclerView) view.findViewById(R.id.realm_recycler_view);
         mRecyclerView.addItemDecoration(new CustomItemDecoration(getResources().getDimensionPixelSize(R.dimen.item_spacer)));
-
         return view;
     }
 
@@ -79,7 +78,7 @@ public class NoteListFragment extends BaseFragment implements View.OnClickListen
                 getActivity(),
                 mResults,
                 true, // refresh adapter on realm update
-                false
+                true
         );
         if (isAdded())
             mRecyclerView.setAdapter(mAdapter);

@@ -1,43 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
-              android:layout_marginTop="?actionBarSize"
-              android:padding="@dimen/medium"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <android.support.design.widget.TextInputLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/normal">
+        android:layout_height="?attr/actionBarSize"
+        app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+    <!--<android.support.design.widget.TextInputLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="@dimen/normal">-->
+
+    <LinearLayout
+        android:padding="@dimen/normal"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <EditText
             android:id="@+id/quotation_note_text"
             android:hint="@string/text_note_quote_hint"
+            android:background="@android:color/transparent"
             style="@style/TextStyle.TextNote.Title"
+            android:layout_marginBottom="@dimen/normal"
             android:imeOptions="actionDone"/>
-
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/large">
 
         <EditText
             android:id="@+id/citation_note_text"
             android:hint="@string/text_note_citation_hint"
+            android:background="@android:color/transparent"
             style="@style/TextStyle.TextNote.Description"
             android:imeOptions="actionDone"/>
 
-    </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
 
 
-    <Button
-        android:id="@+id/save_note"
-        android:padding="@dimen/normal"
-        android:text="@string/button_save_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+
+    <!--</android.support.design.widget.TextInputLayout>-->
+
+    <!--<android.support.design.widget.TextInputLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="@dimen/large">-->
+
+
+
+    <!--</android.support.design.widget.TextInputLayout>-->
+
+
+    <!--<Button-->
+        <!--android:id="@+id/save_note"-->
+        <!--android:padding="@dimen/normal"-->
+        <!--android:text="@string/button_save_text"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"/>-->
 
 </LinearLayout>
