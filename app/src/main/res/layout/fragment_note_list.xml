@@ -15,7 +15,8 @@
             android:layout_marginBottom="@dimen/footer_toolbar_height"
             app:rrvIsRefreshable="false"
             app:rrvEmptyLayoutId="@layout/empty_view"
-            app:rrvLayoutType="LinearLayout"/>
+            app:rrvLayoutType="Grid"
+            app:rrvGridLayoutItemWidth="@dimen/grid_column_size"/>
 
 
     <include layout="@layout/footer_toolbar"/>
