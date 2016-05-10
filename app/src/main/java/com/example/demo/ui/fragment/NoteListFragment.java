@@ -20,6 +20,7 @@ import co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView;
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
+import io.realm.Sort;
 
 public class NoteListFragment extends BaseFragment implements View.OnClickListener{
 
@@ -57,6 +58,7 @@ public class NoteListFragment extends BaseFragment implements View.OnClickListen
         setupFooterToolbarButtons(view);
         mRecyclerView = (RealmRecyclerView) view.findViewById(R.id.realm_recycler_view);
         mRecyclerView.addItemDecoration(new CustomItemDecoration(getResources().getDimensionPixelSize(R.dimen.item_spacer)));
+
         return view;
     }
 
@@ -70,7 +72,7 @@ public class NoteListFragment extends BaseFragment implements View.OnClickListen
     public void onStart() {
         super.onStart();
         // set the query and a callback whenever the query has completed and every time the realm is updated
-        mResults = mRealm.where(Note.class).findAllAsync();
+        mResults = mRealm.where(Note.class).findAllSortedAsync("mId", Sort.DESCENDING);
         mResults.addChangeListener(mCallback);
 
         // instantiate and bind adapter

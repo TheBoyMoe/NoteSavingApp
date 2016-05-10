@@ -113,7 +113,7 @@ public class VideoNoteFragment extends NoteFragment implements
         if (v.getId() == R.id.wrapper) {
             mActivity.selectVideo();
         }
-        return false;
+        return true; // stop click event being propagated further
     }
 
     @Override

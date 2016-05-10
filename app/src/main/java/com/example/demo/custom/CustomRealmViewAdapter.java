@@ -68,7 +68,8 @@ public class CustomRealmViewAdapter extends RealmBasedRecyclerViewAdapter<Note, 
     }
 
 
-    public class CustomRealmViewHolder extends RealmViewHolder implements View.OnClickListener {
+    public class CustomRealmViewHolder extends RealmViewHolder implements
+            View.OnClickListener {
 
         int position;
         int viewType;
@@ -81,6 +82,7 @@ public class CustomRealmViewAdapter extends RealmBasedRecyclerViewAdapter<Note, 
         public CustomRealmViewHolder(View itemView, int viewType) {
             super(itemView);
             itemView.setOnClickListener(this);
+            // itemView.setOnLongClickListener(this);
             this.viewType = viewType;
             textField1 = (TextView) itemView.findViewById(R.id.text_field_one);
             switch (this.viewType) {
@@ -127,6 +129,15 @@ public class CustomRealmViewAdapter extends RealmBasedRecyclerViewAdapter<Note, 
                     break;
             }
         }
+
+        // TODO delete notes via long click
+//        @Override
+//        public boolean onLongClick(View v) {
+//            // TODO delete media/text note
+//            mResults.remove(position); // FIXME IllegalStateException
+//            Utils.showToast(mContext, "Long click");
+//            return true; // stops click event being propagated further
+//        }
 
     }
 

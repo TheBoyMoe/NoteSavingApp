@@ -17,7 +17,6 @@ import timber.log.Timber;
 public class QuotationNoteFragment extends NoteFragment{
 
 
-
     public interface TextNoteContract {
         void saveTextNote(String quote, String citation);
     }
