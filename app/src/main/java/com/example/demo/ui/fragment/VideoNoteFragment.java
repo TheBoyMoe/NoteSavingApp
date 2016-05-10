@@ -4,14 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.example.demo.R;
 import com.example.demo.common.Constants;
@@ -19,7 +20,7 @@ import com.example.demo.common.Utils;
 
 import timber.log.Timber;
 
-public class VideoNoteFragment extends BaseFragment implements
+public class VideoNoteFragment extends NoteFragment implements
         View.OnClickListener, View.OnLongClickListener, TextWatcher{
 
 
@@ -46,13 +47,24 @@ public class VideoNoteFragment extends BaseFragment implements
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_video_note, container, false);
 
+        // add toolbar, enabling up arrow
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setupToolbar(toolbar);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mActivity.saveVideoNote(mVideoTitle);
+                }
+            });
+        }
+
         mTitle = (EditText) view.findViewById(R.id.video_note_title);
         mTitle.addTextChangedListener(this);
         mThumbnail = (ImageView) view.findViewById(R.id.video_note_thumbnail);
-        mThumbnail.setOnClickListener(this);
-        mThumbnail.setOnLongClickListener(this);
-        Button saveButton = (Button) view.findViewById(R.id.save_note);
-        saveButton.setOnClickListener(this);
+        LinearLayout wrapper = (LinearLayout) view.findViewById(R.id.wrapper);
+        wrapper.setOnClickListener(this);
+        wrapper.setOnLongClickListener(this);
 
         if (savedInstanceState != null) {
             mVideoTitle = savedInstanceState.getString(Constants.VIDEO_TITLE);
@@ -88,12 +100,8 @@ public class VideoNoteFragment extends BaseFragment implements
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.video_note_thumbnail:
+            case R.id.wrapper:
                 mActivity.playVideo();
-                break;
-            case R.id.save_note:
-                // save note to realm with the updated title
-                mActivity.saveVideoNote(mVideoTitle);
                 break;
         }
     }
@@ -102,7 +110,7 @@ public class VideoNoteFragment extends BaseFragment implements
     public boolean onLongClick(View v) {
         // allow the user to select/change the video selection
         // use start activityForResult so as to get back the video/thumbnail path/uri & mimeType
-        if (v.getId() == R.id.video_note_thumbnail) {
+        if (v.getId() == R.id.wrapper) {
             mActivity.selectVideo();
         }
         return false;

@@ -39,29 +39,31 @@ public class QuotationNoteActivity extends NoteActivity implements
     @Override
     public void saveTextNote(final String quote, final String citation) {
         // save note to realm
-        final Note textNote = new Note();
-        textNote.setId(Utils.generateCustomId());
-        textNote.setViewType(Constants.TEXT_TYPE);
-        textNote.setTextField1(quote);
-        textNote.setTextField2(citation);
+        Timber.i("%s quote: %s, citation: %s", Constants.LOG_TAG, quote, citation);
+        if (!quote.isEmpty()) {
+            final Note textNote = new Note();
+            textNote.setId(Utils.generateCustomId());
+            textNote.setViewType(Constants.TEXT_TYPE);
+            textNote.setTextField1(quote);
+            textNote.setTextField2(citation);
 
-        mTransaction = mRealm.executeTransactionAsync(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                realm.copyToRealmOrUpdate(textNote);
-            }
-        }, new Realm.Transaction.OnSuccess() {
-            @Override
-            public void onSuccess() {
-                Timber.i("%s: Success! title: %s, description: %s", Constants.LOG_TAG, quote, citation);
-            }
-        }, new Realm.Transaction.OnError() {
-            @Override
-            public void onError(Throwable error) {
-                Timber.e("Error writing object to realm, %s", error.getMessage());
-            }
-        });
-
+            mTransaction = mRealm.executeTransactionAsync(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    realm.copyToRealmOrUpdate(textNote);
+                }
+            }, new Realm.Transaction.OnSuccess() {
+                @Override
+                public void onSuccess() {
+                    Timber.i("%s: Success! title: %s, description: %s", Constants.LOG_TAG, quote, citation);
+                }
+            }, new Realm.Transaction.OnError() {
+                @Override
+                public void onError(Throwable error) {
+                    Timber.e("Error writing object to realm, %s", error.getMessage());
+                }
+            });
+        }
         finish();
     }
 

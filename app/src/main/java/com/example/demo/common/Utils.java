@@ -49,6 +49,10 @@ public class Utils {
         Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
     }
 
+    public static void showSnackbarSticky(View view, String message) {
+        Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE);
+    }
+
     // Check that a network connection is available
     public  static boolean isClientConnected(Context context) {
 

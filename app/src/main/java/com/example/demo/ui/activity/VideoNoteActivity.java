@@ -2,9 +2,12 @@ package com.example.demo.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.content.CursorLoader;
 
 import com.example.demo.R;
 import com.example.demo.common.Constants;
@@ -69,8 +72,18 @@ public class VideoNoteActivity extends NoteActivity implements
     // implementation of the fragment contract
     @Override
     public void selectVideo() { // long click on thumbnail
-        // launch VideoListActivity using startActivityForResult
-        VideoListActivity.launch(this);
+        // check if there are any videos on the device
+        CursorLoader loader = new CursorLoader(
+                this,
+                MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                null, null, null,
+                MediaStore.Video.Media.TITLE);
+        Cursor cursor = loader.loadInBackground();
+        if (cursor.getCount() > 0)
+            // launch VideoListActivity using startActivityForResult
+            VideoListActivity.launch(this);
+        else
+            Utils.showToast(this, "No videos found on device");
     }
 
     @Override
@@ -81,8 +94,6 @@ public class VideoNoteActivity extends NoteActivity implements
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setDataAndType(video, mMimeType);
             startActivity(intent);
-        } else {
-            Utils.showToast(this, "Long click to select video");
         }
     }
 
@@ -90,31 +101,34 @@ public class VideoNoteActivity extends NoteActivity implements
     public void saveVideoNote(String title) {
         // update title, in-case it's been amended
         mTitle = title;
-        // save note to realm
-        final Note videoNote = new Note();
-        videoNote.setId(Utils.generateCustomId());
-        videoNote.setViewType(Constants.MEDIA_TYPE);
-        videoNote.setTextField1(mTitle);
-        videoNote.setFilePath(mVideoPath);
-        videoNote.setMimeType(mMimeType);
+        Timber.i("%s path: %s, mimeType: %s, title: %s",
+                Constants.LOG_TAG, mVideoPath, mMimeType, mTitle);
+        if (mVideoPath != null) {
+            // save note to realm
+            final Note videoNote = new Note();
+            videoNote.setId(Utils.generateCustomId());
+            videoNote.setViewType(Constants.MEDIA_TYPE);
+            videoNote.setTextField1(mTitle);
+            videoNote.setFilePath(mVideoPath);
+            videoNote.setMimeType(mMimeType);
 
-        mTransaction = mRealm.executeTransactionAsync(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                realm.copyToRealmOrUpdate(videoNote);
-            }
-        }, new Realm.Transaction.OnSuccess() {
-            @Override
-            public void onSuccess() {
-                Timber.i("%s: Saved title: %s, path: %s to realm", Constants.LOG_TAG, mTitle, mVideoPath);
-            }
-        }, new Realm.Transaction.OnError() {
-            @Override
-            public void onError(Throwable error) {
-                Timber.e("Error writing object to realm, %s", error.getMessage());
-            }
-        });
-
+            mTransaction = mRealm.executeTransactionAsync(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    realm.copyToRealmOrUpdate(videoNote);
+                }
+            }, new Realm.Transaction.OnSuccess() {
+                @Override
+                public void onSuccess() {
+                    Timber.i("%s: Saved title: %s, path: %s to realm", Constants.LOG_TAG, mTitle, mVideoPath);
+                }
+            }, new Realm.Transaction.OnError() {
+                @Override
+                public void onError(Throwable error) {
+                    Timber.e("Error writing object to realm, %s", error.getMessage());
+                }
+            });
+        }
         finish();
     }
 

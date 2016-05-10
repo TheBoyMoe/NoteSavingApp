@@ -15,10 +15,9 @@ import com.example.demo.common.Constants;
 import com.example.demo.ui.fragment.VideoListFragment;
 
 /*
-    Responsible for displaying list of available videos on device,
-    allowing user selection
+    Responsible for displaying list of available videos on device
  */
-public class VideoListActivity extends NoteActivity implements
+public class VideoListActivity extends BaseActivity implements
         VideoListFragment.VideoListContract{
 
 

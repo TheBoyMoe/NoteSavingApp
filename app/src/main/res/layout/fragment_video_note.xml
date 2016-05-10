@@ -1,40 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:layout_marginTop="?actionBarSize"
-              android:padding="@dimen/medium"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <android.support.design.widget.TextInputLayout
+    <!--<android.support.design.widget.TextInputLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="@dimen/normal">-->
+
+    <include layout="@layout/toolbar"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="@dimen/normal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/normal">
+        android:layout_height="match_parent">
 
         <EditText
             android:id="@+id/video_note_title"
             android:hint="@string/video_note_title_hint"
+            android:layout_marginBottom="@dimen/normal"
+            android:background="@android:color/transparent"
             style="@style/TextStyle.TextNote.Title"
             android:imeOptions="actionDone"/>
 
-    </android.support.design.widget.TextInputLayout>
+        <LinearLayout
+            android:id="@+id/wrapper"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/video_note_thumbnail"
+                android:contentDescription="@string/video_thumbnail_content_description"
+                android:src="@mipmap/ic_launcher"
+                android:layout_marginTop="@dimen/large"
+                android:layout_marginBottom="@dimen/large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/video_selection_text"
+                android:text="Press and hold to select video"
+                android:layout_marginTop="@dimen/small"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
 
 
-    <ImageView
-        android:id="@+id/video_note_thumbnail"
-        android:contentDescription="@string/video_thumbnail_content_description"
-        android:src="@mipmap/ic_launcher"
-        android:layout_marginTop="@dimen/large"
-        android:layout_marginBottom="@dimen/large"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 
 
-    <Button
-        android:id="@+id/save_note"
-        android:padding="@dimen/normal"
-        android:text="@string/button_save_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+
+    <!--</android.support.design.widget.TextInputLayout>-->
+
+
+    <!--<Button-->
+        <!--android:id="@+id/save_note"-->
+        <!--android:padding="@dimen/normal"-->
+        <!--android:text="@string/button_save_text"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"/>-->
 
 </LinearLayout>

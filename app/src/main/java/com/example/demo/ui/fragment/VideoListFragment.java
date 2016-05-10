@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.SimpleCursorAdapter;
 
 import com.example.demo.R;
+import com.example.demo.common.Constants;
 import com.squareup.picasso.Picasso;
 
 import timber.log.Timber;
@@ -96,6 +97,7 @@ public class VideoListFragment extends Fragment implements
 
     @Override
     public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+        Timber.i("%s cursor size: %d", Constants.LOG_TAG, cursor.getCount());
         if (columnIndex == cursor.getColumnIndex(MediaStore.Video.Media._ID)) {
             Uri thumbnailUri = ContentUris.withAppendedId(
                     MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
