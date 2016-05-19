@@ -68,8 +68,7 @@ public class CustomRealmViewAdapter extends RealmBasedRecyclerViewAdapter<Note, 
     }
 
 
-    public class CustomRealmViewHolder extends RealmViewHolder implements
-            View.OnClickListener {
+    public class CustomRealmViewHolder extends RealmViewHolder implements View.OnClickListener {
 
         int position;
         int viewType;

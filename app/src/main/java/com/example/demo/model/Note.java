@@ -67,4 +67,5 @@ public class Note extends RealmObject{
     public String toString() {
         return getTextField1();
     }
+
 }

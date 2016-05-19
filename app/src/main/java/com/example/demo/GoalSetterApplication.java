@@ -55,6 +55,7 @@ public class GoalSetterApplication extends Application{
         // setup default realm configuration
         RealmConfiguration config = new RealmConfiguration.Builder(this)
                 .name(Constants.REALM_DATABASE_NAME)
+                .deleteRealmIfMigrationNeeded() // delete realm if data model changes
                 .build();
         Realm.setDefaultConfiguration(config);
 
