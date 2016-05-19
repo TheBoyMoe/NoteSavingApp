@@ -23,8 +23,8 @@ public class CustomPagerAdapter extends FragmentPagerAdapter{
         // instantiate the appropriate fragment
         switch (position) {
             case INSPIRATION_FRAGMENT:
-                // return NoteListFragment.newInstance();
-                return RealmNoteListFragment.newInstance();
+                //return NoteListFragment.newInstance(); // uses Thorben's custom library
+                return RealmNoteListFragment.newInstance(); // uses custom RecyclerViewAdapter
             case GOAL_FRAGMENT:
             case TASK_FRAGMENT:
             case CALENDAR_FRAGMENT:

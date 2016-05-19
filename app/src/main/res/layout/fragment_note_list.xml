@@ -7,16 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragment.PlaceHolderFragment">
 
-        <!-- bottom margin ensures the last item is not hidden by the footer -->
-        <co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView
-            android:id="@+id/realm_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/footer_toolbar_height"
-            app:rrvIsRefreshable="false"
-            app:rrvEmptyLayoutId="@layout/empty_view"
-            app:rrvLayoutType="Grid"
-            app:rrvGridLayoutItemWidth="@dimen/grid_column_size"/>
+    <!-- bottom margin ensures the last item is not hidden by the footer -->
+    <co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView
+        android:id="@+id/realm_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/footer_toolbar_height"
+        app:rrvIsRefreshable="false"
+        app:rrvEmptyLayoutId="@layout/empty_view"
+        app:rrvLayoutType="Grid"
+        app:rrvGridLayoutItemWidth="@dimen/grid_column_size"/>
 
 
     <include layout="@layout/footer_toolbar"/>
