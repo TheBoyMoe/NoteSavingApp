@@ -32,7 +32,6 @@ public class QuotationNoteActivity extends NoteActivity implements
                     .add(R.id.fragment_container, QuotationNoteFragment.newInstance())
                     .commit();
         }
-
     }
 
 

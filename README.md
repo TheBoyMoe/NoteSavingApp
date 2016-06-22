@@ -1,7 +1,9 @@
-Goal Setter Demo App
+Android Note Saving App
 ====================
 
-Android app which allows users to set and follow the goals and tasks that they set
+Inspired by Google's Keep, display saved notes and video to the view. Features to add audio and 
+image 'notes'yet to be added. Notes are saved to an instance of a Realm database. The app uses
+ Thorben Primke's [RealmRecyclerView] (https://github.com/thorbenprimke/realm-recyclerview) to display notes in a grid view.
 
 Pre-requisites
 --------------
@@ -13,14 +15,6 @@ Getting Started
 
 This sample uses the Gradle build system. To build this project, use the
 "gradlew build" command or use "Import Project" in Android Studio.
-
-
-Screenshots
------------
-
-![Phone](screenshots/phone_preview.gif "Interacting with the app on a phone")
-
-![Tablet](screenshots/tablet_preview.gif "Interacting with the app on a tablet")
 
 
 MIT License
